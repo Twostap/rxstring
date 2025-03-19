@@ -1,3 +1,24 @@
+################################################################################
+#
+#© Copyright 2025, Tyler Ostapyk
+#This program is free software: you can redistribute it and/or modify it
+#under the terms of the GNU General Public License as published by the Free
+#Software Foundation, either version 3 of the License, or (at your option)
+#any later version.
+#
+#This program is distributed in the hope that it will be useful, but WITHOUT
+#ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+#FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+#You may have received a copy of the GNU General Public License along with
+#this program. If not, see <https://www.gnu.org/licenses/>.
+#
+#################################################################################
+
+#Description: This code produces a flask app for identifying drug data terms for knowledge synthesis projects
+#Author: Tyler Ostapyk (tyler.ostapyk@umanitoba.ca)
+#Date: March 19, 2025
+
 # importing Flask and other modules
 from flask import Flask, request, render_template
 from unidecode import unidecode
