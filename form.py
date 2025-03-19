@@ -600,7 +600,7 @@ def drugdata():
                  if PhraseSearch=="on":
 
                      dedupedstring = '" OR "'.join(dedupedlist)
-                     FormattedPage = "<div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Data Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
+                     FormattedPage = "<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Data Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
  
                  else:
 
@@ -627,7 +627,7 @@ def drugdata():
  
              else:
 
-                 FormattedPage = "<div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Data Tool</h1><div><h2>Query Responses</h2></div>" + completestring +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>"
+                 FormattedPage = "<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Data Tool</h1><div><h2>Query Responses</h2></div>" + completestring +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>"
 
 
              #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
@@ -640,7 +640,7 @@ def drugdata():
              FormattedPage = FormattedPage.replace("_","-")
              FormattedPage = FormattedPage.replace(","," ")
 #Add copywrite after running unidecode or it will appear as (c)
-             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.8em'>© Copyright 2025 Tyler Ostapyk</p></div></div>"
+             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.8em'>© Copyright 2025 Tyler Ostapyk</p></div></div></body></html>"
              
              return FormattedPage
     return render_template("form.html")
