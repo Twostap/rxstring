@@ -1,35 +1,45 @@
 <html>
 <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body>
-<div><h1>Drug Terms Tool</h1>
-<p>This tool queries MeSH, RXNorm, Wikidata, PubChem, DrugBank, and Emtree for drug terms and combines them into a single search string that can be used in bibliographic databases</p>
-<p>Emtree files must be uploaded if searching this source. Consult the <a href="https://github.com/Twostap/drugdata/blob/main/README.md" target="_blank">readme</a> for additional information</p>
-<form action="{{ url_for("drugdata")}}" method="post" enctype="multipart/form-data">
-<label for="drugname"><b>Search for a drug:</b></label>
-<input type="text" id="drugname" name="dname" placeholder="drug name">
-<br><br><b>Select data sources to query:</b><br><br>
+<div style="margin-top:25px"><table style="padding:5px">
+<tr><td rowspan="2" style="width:10%; vertical-align:top;"><img width="100px" src="rxstringcropped.png"/></td>
+<td style="width:90%">RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, and Emtree for drug terms.</td></tr>
+<tr><td style="width:90%">Results are combined into a single search string that can be used to search bibliographic databases.</td></tr>
+<tr><td style="width:10%"></td><td style="width:90%">Emtree files must be uploaded when searching this source.</td></tr>
+<tr><td style="width:10%"></td><td style="width:90%">Consult the <a href="https://github.com/Twostap/drugdata/blob/main/README.md" target="_blank">readme</a> for additional information</td></tr>
+<tr><td style="width:10%"></td><td style="width:90%"><form action="{{ url_for("drugdata")}}" method="post" enctype="multipart/form-data">
+<table style="width:100%; border-spacing: 0 1em">
+<tr><td style="width:20%"><label for="drugname"><b>Search term</b></label></td>
+<td style="80%"><input type="text" id="drugname" name="dname" placeholder="enter a drug name"></td>
+</tr>
+<tr>
+<td style="width:20%"><label for="PhraseSearch"><b>Phrase search<b></label></td>
+<td style="width:80%;"><input type="checkbox" id="PhraseSearch" name="PhraseSearch" /></td>
+</tr>
+<tr>
+<td style="width:20%; vertical-align:top"><b>Data sources</b></td>
+<td style="width:80%">
 <table style="border:0">
-<tr><td><input type="checkbox" id="MeSHSearch" name="MeSHSearch" />
+<tr><td width="100%" colspan="2"><input type="checkbox" id="MeSHSearch" name="MeSHSearch" />
 <label for="MeSHSearch">MeSH</label></td></tr>
-<tr><td><input type="checkbox" id="RXSearch" name="RXSearch" />
+<tr><td colspan="2"><input type="checkbox" id="RXSearch" name="RXSearch" />
 <label for="RXSearch">RXNorm</label></td></tr>
-<tr><td><input type="checkbox" id="WikidataSearch" name="WikidataSearch" />
+<tr><td colspan="2"><input type="checkbox" id="WikidataSearch" name="WikidataSearch" />
 <label for="WikidataSearch">Wikidata</label></td></tr>
-<tr><td><input type="checkbox" id="PubChemSearch" name="PubChemSearch" />
+<tr><td colspan="2"><input type="checkbox" id="PubChemSearch" name="PubChemSearch" />
 <label for="PubChemSearch">PubChem</label></td></tr>
-<tr><td><input type="checkbox" id="DrugBankSearch" name="DrugBankSearch" />
+<tr><td colspan="2"><input type="checkbox" id="DrugBankSearch" name="DrugBankSearch" />
 <label for="DrugBankSearch">DrugBank</label></td></tr>
-<tr><td><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" />
-<label for="EmtreeSearch">Emtree</label></td></tr>
+<tr><td style="width:30%"><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" /><label for="EmtreeSearch">Emtree</label></td><td style="width:70%"><input style="font-size:10px" type="file" name="emtreefile" id="emtreefile"></td>
+</tr>
 </table>
-<br>
-<b>Upload a file from Emtree:</b><br><br>
-<input type="file" name="emtreefile"><br><br>
-<b>Check this box if you would like to conduct a phrase search:</b><br><br>
-<input type="checkbox" id="PhraseSearch" name="PhraseSearch" />
-<label for="PhraseSearch">Phrase search</label></td></tr>
-<br><br>
-<button type="submit">Search</button></div></form>
-<div style="margin-top: auto;"><p style="font-size:.8em;">© Copyright 2025 Tyler Ostapyk</p></div></div>
+</td>
+</tr>
+</table>
+<button type="submit" style="color: white; background-color: #01789f; border:1px solid black; padding:4px 10px"}>Search</button>
+</form>
+</td></tr></table>
+</div>
+<div style="margin-top: auto;"><p style="font-size:.6em;"><br><br>© Copyright 2025 Tyler Ostapyk</p></div></div>
 </body>
 </html>
