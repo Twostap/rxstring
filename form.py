@@ -61,7 +61,7 @@ def drugdata():
 #Check if search term was entered into the HTML form, if not then output notice asking them to enter a search again
        if drug=="":
             completestring = "Did not enter a search term. Please enter a search term and try again."
-            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring + "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.8em;'>© Copyright 2025 Tyler Ostapyk</p></div></div>"
+            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring + "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.8em;'>© Copyright 2025 Tyler Ostapyk</p></div>"
             return FormattedPage
 
 #When a search term was entered
@@ -641,7 +641,7 @@ def drugdata():
              FormattedPage = FormattedPage.replace("_","-")
              FormattedPage = FormattedPage.replace(","," ")
 #Add copywrite after running unidecode or it will appear as (c)
-             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.8em'>© Copyright 2025 Tyler Ostapyk</p></div></div></body></html>"
+             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.8em'>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
              return FormattedPage
     return render_template("form.html")
