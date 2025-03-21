@@ -1,23 +1,25 @@
 <html>
 <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body>
-<div style="margin-top:25px"><table style="padding:5px">
-<tr><td rowspan="2" style="width:10%; vertical-align:top;"><img width="100px" src="https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png"/></td>
-<td style="width:90%">RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, and Emtree for drug terms.</td></tr>
-<tr><td style="width:90%">Results are combined into a single search string that can be used to search bibliographic databases.</td></tr>
-<tr><td style="width:10%"></td><td style="width:90%">Emtree files must be uploaded when searching this source.</td></tr>
-<tr><td style="width:10%"></td><td style="width:90%">Consult the <a href="https://github.com/Twostap/drugdata/blob/main/README.md" target="_blank">readme</a> for additional information.</td></tr>
-<tr><td style="width:10%"></td><td style="width:90%"><form action="{{ url_for("drugdata")}}" method="post" enctype="multipart/form-data">
-<table style="width:100%; border-spacing: 0 1em">
-<tr><td style="width:20%"><label for="drugname"><b>Search term</b></label></td>
+<div style="margin-top:25px; font-family:calibri">
+<table style="padding:5px; border-collapse: collapse;">
+<tr>
+<td rowspan="7" style="width:10%; vertical-align:top; padding-right:20px;"><img width="100px" src="https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png"/></td></tr>
+<tr><td style="width:90%;">RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, and Emtree for drug terms.</td></tr>
+<tr><td style="width:90%; padding-top:20px;">Results are combined into a single search string that can be used to search bibliographic databases.</td></tr>
+<tr><td style="width:90%; padding-top:20px">Emtree files must be uploaded when searching this source.</td></tr>
+<tr><td style="width:90%; padding-top:20px">Consult the <a href="https://github.com/Twostap/drugdata/blob/main/README.md" target="_blank">readme</a> for additional information</td></tr>
+<tr><td style="width:90%; padding-top:20px"><form action="{{ url_for("drugdata")}}" method="post" enctype="multipart/form-data">
+<table style="width:100%; border-spacing: 0 1em;">
+<tr><td style="width:20%; padding-left:10px;"><label for="drugname"><b>Search term</b></label></td>
 <td style="80%"><input type="text" id="drugname" name="dname" placeholder="enter a drug name"></td>
 </tr>
 <tr>
-<td style="width:20%"><label for="PhraseSearch"><b>Phrase search<b></label></td>
+<td style="width:20%; padding-left:10px;"><label for="PhraseSearch"><b>Phrase search<b></label></td>
 <td style="width:80%;"><input type="checkbox" id="PhraseSearch" name="PhraseSearch" /></td>
 </tr>
 <tr>
-<td style="width:20%; vertical-align:top"><b>Data sources</b></td>
+<td style="width:20%; vertical-align:top; padding-left:10px;"><b>Data sources</b></td>
 <td style="width:80%">
 <table style="border:0">
 <tr><td width="100%" colspan="2"><input type="checkbox" id="MeSHSearch" name="MeSHSearch" />
@@ -30,7 +32,7 @@
 <label for="PubChemSearch">PubChem</label></td></tr>
 <tr><td colspan="2"><input type="checkbox" id="DrugBankSearch" name="DrugBankSearch" />
 <label for="DrugBankSearch">DrugBank</label></td></tr>
-<tr><td style="width:30%"><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" /><label for="EmtreeSearch">Emtree</label></td><td style="width:70%"><input style="font-size:10px" type="file" name="emtreefile" id="emtreefile"></td>
+<tr><td style="width:30%"><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" /><label for="EmtreeSearch"> Emtree</label></td><td style="width:70%"><input style="font-size:10px" type="file" name="emtreefile" id="emtreefile"></td>
 </tr>
 </table>
 </td>
