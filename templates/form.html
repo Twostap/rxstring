@@ -3,6 +3,7 @@
 <style>
 .logo {float:left}
 .logoimage {margin-right:20px}
+.choosefile {padding-left:5px;}
 
 @media only screen and (max-width: 600px) {
   .logo {grid-area: 1 / span 3; float:none}
@@ -37,17 +38,12 @@
 <td style="width:20%; vertical-align:top; padding-left:10px;"><b>Data sources</b></td>
 <td style="width:80%">
 <table class="sources" style="border:0; font-size:.9em">
-<tr><td width="100%" colspan="2"><input type="checkbox" id="MeSHSearch" name="MeSHSearch" />
-<label for="MeSHSearch">MeSH</label></td></tr>
-<tr><td colspan="2"><input type="checkbox" id="RXSearch" name="RXSearch" />
-<label for="RXSearch">RXNorm</label></td></tr>
-<tr><td colspan="2"><input type="checkbox" id="WikidataSearch" name="WikidataSearch" />
-<label for="WikidataSearch">Wikidata</label></td></tr>
-<tr><td colspan="2"><input type="checkbox" id="PubChemSearch" name="PubChemSearch" />
-<label for="PubChemSearch">PubChem</label></td></tr>
-<tr><td colspan="2"><input type="checkbox" id="DrugBankSearch" name="DrugBankSearch" />
-<label for="DrugBankSearch">DrugBank</label></td></tr>
-<tr><td style="width:30%"><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" /><label for="EmtreeSearch"> Emtree</label></td><td style="width:70%"><input style="font-size:10px" type="file" name="emtreefile" id="emtreefile"></td>
+<tr><td width="100%"><input type="checkbox" id="MeSHSearch" name="MeSHSearch" /><label for="MeSHSearch">MeSH</label></td></tr>
+<tr><td><input type="checkbox" id="RXSearch" name="RXSearch" /><label for="RXSearch">RXNorm</label></td></tr>
+<tr><td><input type="checkbox" id="WikidataSearch" name="WikidataSearch" /><label for="WikidataSearch">Wikidata</label></td></tr>
+<tr><td><input type="checkbox" id="PubChemSearch" name="PubChemSearch" /><label for="PubChemSearch">PubChem</label></td></tr>
+<tr><td><input type="checkbox" id="DrugBankSearch" name="DrugBankSearch" /><label for="DrugBankSearch">DrugBank</label></td></tr>
+<tr><td><input type="checkbox" id="EmtreeSearch" name="EmtreeSearch" /><label for="EmtreeSearch">Emtree</label><input class="choosefile" style="font-size:.9em;" type="file" name="emtreefile" id="emtreefile"></td></tr>
 </tr>
 </table>
 </td>
