@@ -15,6 +15,7 @@
 #
 #################################################################################
 
+#Name: RxString
 #Description: This code produces a flask app for identifying drug data terms for knowledge synthesis projects
 #Author: Tyler Ostapyk (tyler.ostapyk@umanitoba.ca)
 #Date: March 19, 2025
@@ -60,7 +61,7 @@ def drugdata():
 #Check if search term was entered into the HTML form, if not then output notice asking them to enter a search again
        if drug=="":
             completestring = "Did not enter a search term. Please enter a search term and try again."
-            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring + "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.8em;'>© Copyright 2025 Tyler Ostapyk</p></div></div>"
+            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring + "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.8em;'>© Copyright 2025 Tyler Ostapyk</p></div></div>"
             return FormattedPage
 
 #When a search term was entered
@@ -600,7 +601,7 @@ def drugdata():
                  if PhraseSearch=="on":
 
                      dedupedstring = '" OR "'.join(dedupedlist)
-                     FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
+                     FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
  
                  else:
 
@@ -623,11 +624,11 @@ def drugdata():
                      dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
                      dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
                      dedupedstring = dedupedstring.replace(' use ',' "use" ')
-                     FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring
+                     FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completeintro +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring
  
              else:
 
-                 FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body><div style='display: flex; flex-direction: column; height: 100%'>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>"
+                 FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'></head><body>" + "<div><h1>Drug Terms Tool</h1><div><h2>Query Responses</h2></div>" + completestring +  "<br><br>" +  "<form><input type='button' value='New search' onclick='window.history.go(-1)'></form>"
 
 
              #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
