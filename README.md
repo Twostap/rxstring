@@ -1,6 +1,6 @@
 *Searching MeSH, RXNorm, Wikidata, PubChem, and DrugBank for Drug Terms:
 
-1. Search for a drug term using the space provided.
+1. Enter a drug term in the space provided.
 2. Select the sources you would like to search.
 3. The phrase search option will add quotation marks around each term in the resulting search string that is produced.
 4. Click Search.
