@@ -459,7 +459,7 @@ def drugdata():
              if MeSHSearch==None and RXSearch==None and WikidataSearch==None and PubChemSearch==None and DrugBankSearch==None and EmtreeSearch==None:
                  completestring = "No sources were searched. Please select a data source for your query."
              elif combined==0 and MESHtermcheck==0 and rxstring==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms==0:
-                 completestring = "Search term returned no results in selected resources.<p>No Emtree file was uploaded.</p>"
+                 completestring = "Search term returned no results in selected resources."
              elif MESHtermcheck==0 and rxstring==0 and combined==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms!=0:            
                   completestring = MeshMatch + "<br><br>" + RXMatch + "<br><br>" + WikiMatch + "<br><br>" + PubMatch + "<br><br>" + DrugBankMatch + "<br><br><b>Emtree Term: </b>" + efilename + "<br><br><h2>Search string</h2>" + EmtreeTerms
              elif MESHtermcheck!=0 and rxstring!=0 and combined!=0 and PubTerms!=0 and DrugBankTerms==0 and EmtreeTerms==0:
