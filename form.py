@@ -640,7 +640,7 @@ def drugdata():
              FormattedPage = FormattedPage.replace("#","")
              FormattedPage = FormattedPage.replace("_","-")
              FormattedPage = FormattedPage.replace(","," ")
-#Add copywrite after running unidecode or it will appear as (c)
+#Add copyright after running unidecode or it will appear as (c)
              FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
              return FormattedPage
