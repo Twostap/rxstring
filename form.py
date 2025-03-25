@@ -61,7 +61,7 @@ def drugdata():
 #Check if search term was entered into the HTML form, if not then output notice asking them to enter a search again
        if drug=="":
             completestring = "Did not enter a search term. Please enter a search term and try again."
-            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>.resultslogo {float:left; height:100%;} .resultslogoimage {margin-right:20px} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .resultscontent {grid-area: 2 / span 3;} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;</style></head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completestring + "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.8em;'>© Copyright 2025 Tyler Ostapyk</p></div>"
+            FormattedPage = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>.resultslogo {float:left; height:100%;} .resultslogoimage {margin-right:20px} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .resultscontent {grid-area: 2 / span 3;} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;</style></head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completestring + "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='window.history.go(-1)'></form>" + "</div><div style='margin-top: auto'><p style='font-size:.6em;'><br><br>© Copyright 2025 Tyler Ostapyk</p></div>"
             return FormattedPage
 
 #When a search term was entered
@@ -641,7 +641,7 @@ def drugdata():
              FormattedPage = FormattedPage.replace("_","-")
              FormattedPage = FormattedPage.replace(","," ")
 #Add copywrite after running unidecode or it will appear as (c)
-             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.8em'>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
+             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
              return FormattedPage
     return render_template("form.html")
