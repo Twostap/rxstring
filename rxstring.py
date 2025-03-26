@@ -32,8 +32,6 @@ from bs4 import BeautifulSoup
 # Flask constructor
 app = Flask(__name__)  
  
-# A decorator used to tell the application
-# which URL is associated function
 @app.route('/', methods =["GET", "POST"])
 def drugdata():
     if request.method == "POST":
