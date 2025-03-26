@@ -143,7 +143,7 @@ def drugdata():
 
                            URL2 = "https://rxnav.nlm.nih.gov/REST/rxcui/" + idnumber + "/related.json"
 
-                           relators = "has_tradename tradename_of"
+                           relators = "has_tradename tradename_of consists_of"
 
                            PARAMS2 = {'rela':relators}
 
