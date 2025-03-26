@@ -191,7 +191,7 @@ def drugdata():
                  QID = []  
                  from SPARQLWrapper import SPARQLWrapper, JSON
 
-                 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+                 sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="rxstring/1.0;(https://rxstring.ca; tyler.ostapyk@umanitoba.ca)")
 
                  #Match drug term, may want to limit to specific property, e.g. pharmaceutical products
                  term = '"' + drug + '"@en'
