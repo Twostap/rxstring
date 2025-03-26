@@ -11,7 +11,7 @@
 1. Log in to Ovid Embase using your personal/institutional subscription.
 2. Search the thesaurus or use the map term to subject heading checkbox to find a relevant Emtree term.
 3. Open the scope note page for the term by clicking on the "i" icon.
-4. Right-click and click save page as... to save the html page to somewhere on your local system. Use a filename that matches the term you will be inputting into the search bar in the tool (e.g. naproxen.html)
+4. Right-click and click save page as... to save the html page to a location on your local system. Use a filename that matches the term you will be inputting into the search bar in the tool (e.g. naproxen.html)
 5. In the tool, click choose file... and upload the file.
 6. Enter the name of the drug in the search term box (it should match the filename).
 7. Click search.
