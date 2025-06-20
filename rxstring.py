@@ -446,7 +446,6 @@ def drugdata():
                                           EmtreeTerms = ("\n".join(EmtreeTerms.split("\n")[:-3]))
                                           EmtreeTerms = EmtreeTerms.strip()
                                           EmtreeTerms = " OR ".join((EmtreeTerms).split("\n"))
-                                          print(EmtreeTerms)
 
              else:
                EmtreeTerms = 0
