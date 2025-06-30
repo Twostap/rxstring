@@ -47,12 +47,14 @@ def drugdata():
        PhraseSearch = request.form.get("PhraseSearch")
        drugallcaps = drug.upper()
        drugcapital = drug.capitalize()
-       googleanalytics = r"""<script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
+       googleanalytics = r"""
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
 <script>window.dataLayer = window.dataLayer || []; 
 function gtag(){dataLayer.push(arguments);} 
 gtag('js', new Date()); 
 
-gtag('config', 'G-EESD1S9033');</script>"""
+gtag('config', 'G-EESD1S9033');</script>
+"""
       
 #Can use test if in virtual environment, noted out for now
        #if sys.prefix != sys.base_prefix:
