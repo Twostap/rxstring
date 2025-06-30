@@ -33,7 +33,7 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)  
 googleanalytics = r"""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/analytics.js"></script>
+<script src="https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/analytics.js"></script>
 """
 
 @app.route('/', methods =["GET", "POST"])
@@ -645,7 +645,7 @@ def drugdata():
              FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
              return FormattedPage
-    return render_template("form.html", googleanalytics=googleanalytics)
+    return render_template("form.html")
 
 if __name__=='__main__':
    app.run()
