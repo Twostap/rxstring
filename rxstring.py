@@ -41,7 +41,7 @@ gtag('config', 'G-EESD1S9033');</script>
 """
 
 googlesafe = r"""
-{{ partial_html | safe }}
+{{ googleanalytics | safe }}
 """
 
 @app.route('/', methods =["GET", "POST"])
