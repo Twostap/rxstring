@@ -3,4 +3,3 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date()); 
 
 gtag('config', 'G-EESD1S9033');
-alert("test");
