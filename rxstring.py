@@ -649,7 +649,7 @@ gtag('config', 'G-EESD1S9033');</script>
              FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
              return FormattedPage
-    return render_template("form.html")
+    return render_template("form.html", googleanalytics=googleanalytics)
 
 if __name__=='__main__':
    app.run()
