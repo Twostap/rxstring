@@ -652,7 +652,7 @@ def drugdata():
 #Add copyright after running unidecode or it will appear as (c)
              FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
-             return FormattedPage
+             return FormattedPage(googleanalytics=googleanalytics)
     return render_template("form.html", googleanalytics=googleanalytics)
 
 if __name__=='__main__':
