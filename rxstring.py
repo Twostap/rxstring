@@ -33,11 +33,7 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)  
 googleanalytics = r"""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
-<script>window.dataLayer = window.dataLayer || []; 
-function gtag(){dataLayer.push(arguments);} 
-gtag('js', new Date()); 
-
-gtag('config', 'G-EESD1S9033');</script>
+<script type="text/javascript" src="analytics.js"></script>
 """
 
 @app.route('/', methods =["GET", "POST"])
