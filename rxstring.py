@@ -49,6 +49,7 @@ def drugdata():
        DrugBankSearch = request.form.get("DrugBankSearch")
        EmtreeSearch = request.form.get("EmtreeSearch")
        PhraseSearch = request.form.get("PhraseSearch")
+       TruncationSymbol = request.form.get("TruncationSymbol")
        drugallcaps = drug.upper()
        drugcapital = drug.capitalize()
       
@@ -598,14 +599,41 @@ def drugdata():
                  dedupedlist = list(dict.fromkeys(deduped))
                  
 #If phrase search is on put quotation marks around each separate term when joining
-                 if PhraseSearch=="on":
+                 if PhraseSearch=="on" and TruncationSymbol=="on":
 
-                     dedupedstring = '" OR "'.join(dedupedlist)
+                     dedupedstring = '*" OR "'.join(dedupedlist)
                      FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
- 
+		 
+		 elif PhraseSearch=="on" and TruncationSymbol=="off":
+                     
+	             dedupedstring = '*" OR "'.join(dedupedlist)
+                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
+
+		 elif PhraseSearch=="off" and TruncationSymbol=="on":
+			 
+                     dedupedstring = "* OR ".join(dedupedlist) 
+                     dedupedstring = dedupedstring.replace("+-","")
+                     dedupedstring = dedupedstring.replace("-+","")
+                     dedupedstring = dedupedstring.replace(' and ',' "and" ')
+                     dedupedstring = dedupedstring.replace(' or ',' "or" ')
+                     dedupedstring = dedupedstring.replace(' not ',' "not" ')
+                     dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
+                     dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
+                     dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
+                     dedupedstring = dedupedstring.replace('S2-','"S2"-')
+                     dedupedstring = dedupedstring.replace('S1-','"S1"-')
+                     dedupedstring = dedupedstring.replace('s2-','"s2"-')
+                     dedupedstring = dedupedstring.replace('s1-','"s1"-')
+                     dedupedstring = dedupedstring.replace('-s1','-"s1"')
+                     dedupedstring = dedupedstring.replace('-S1','-"S1"')
+                     dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
+                     dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
+                     dedupedstring = dedupedstring.replace(' use ',' "use" ')
+                     dedupedstring = dedupedstring.replace("/"," ")
+                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto;} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='window.history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring	     
+	                 	     
                  else:
 
-#If phrase search isn't on join terms with OR but put these terms in quotation marks because they can cause errors in bibliographic databases
                      dedupedstring = " OR ".join(dedupedlist) 
                      dedupedstring = dedupedstring.replace("+-","")
                      dedupedstring = dedupedstring.replace("-+","")
