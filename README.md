@@ -3,8 +3,9 @@
 1. Enter a drug term in the space provided.
 2. Select the sources you would like to search.
 3. The phrase search option will add quotation marks around each term in the resulting search string that is produced.
-4. Click Search.
-5. Copy the search string on the results page and paste it into a bibliographic database to search.
+4. The truncation option will add an asterisk (*) following each term to search for alternate word endings in some databases.
+5. Click Search.
+6. Copy the search string on the results page and paste it into a bibliographic database to search.
 
 *Searching Emtree
 
