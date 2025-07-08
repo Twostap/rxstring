@@ -16,3 +16,5 @@
 5. In the tool, click choose file... and upload the file.
 6. Enter the name of the drug in the search term box (it should match the filename).
 7. Click search.
+
+Please contact Tyler Ostapyk (tyler.ostapyk@umanitoba.ca) with any questions, suggestions, or concerns.
