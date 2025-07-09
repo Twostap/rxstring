@@ -31,11 +31,13 @@ from bs4 import BeautifulSoup
 
 # Flask constructor
 app = Flask(__name__)  
+
+#Google Analytics
 googleanalytics = r"""
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
 <script src="/static/analytics.js"></script>
 """
-
+#Get info from HTML form
 @app.route('/', methods =["GET", "POST"])
 def drugdata():
     if request.method == "POST":
