@@ -462,7 +462,7 @@ def drugdata():
 #Build results page based on values passed from each section above
              if MeSHSearch==None and RXSearch==None and WikidataSearch==None and PubChemSearch==None and DrugBankSearch==None and EmtreeSearch==None:
                  completestring = "No sources were searched. Please select a data source for your query."
-             elif combined==0 and MESHtermcheck==0 and rxstring==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms==0:
+             elif combined==0 and MESHtermcheck==0 and rxnormstring==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms==0:
                  completestring = "Search term returned no results in selected resources.<p>No Emtree file was uploaded.</p>"
              else:
                  completestringarray = []
@@ -471,9 +471,9 @@ def drugdata():
                   completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
-                 if rxstring!=0:
+                 if rxnormstring!=0:
                   RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber +"</a>"
-                  completestringarray.append(rxstring)
+                  completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
@@ -587,4 +587,5 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
