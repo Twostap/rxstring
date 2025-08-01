@@ -430,6 +430,8 @@ def drugdata():
                  LOCdata = LOC.json()
 
                  LOCTerms = []
+
+		 LOCtermcheck = ""
                  
                  for LOCresult in LOCdata["hits"]:
                            LOCURI = LOCresult["uri"]
@@ -437,12 +439,14 @@ def drugdata():
                            LOCtermcheck = 1
                            for LOCalts in LOCresult["more"]["variantLabels"]:
                                LOCTerms.append(LOCalts)
-                 if LOCtermcheck==1:
-                           LOCTerms = " OR ".join(LOCTerms)
-                           LOCTerms = LOCTerms.replace(" (Trademark)","")
+                 
                  if LOCTerms==[]:
                            LOCMatch = "No results in Library of Congress"
                            LOCtermcheck = 0
+
+                 if LOCtermcheck==1:
+                           LOCTerms = " OR ".join(LOCTerms)
+                           LOCTerms = LOCTerms.replace(" (Trademark)","")
                  
              else:
                  LOCtermcheck = 0
@@ -620,6 +624,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
