@@ -430,8 +430,6 @@ def drugdata():
                  LOCdata = LOC.json()
 
                  LOCTerms = []
-
-		 LOCtermcheck = ""
                  
                  for LOCresult in LOCdata["hits"]:
                            LOCURI = LOCresult["uri"]
@@ -624,6 +622,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
