@@ -2,7 +2,7 @@ RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, and Emtree for drug 
 
 Results are combined into a single search string that can be used to search bibliographic databases.
 
-*Searching MeSH, RXNorm, Wikidata, PubChem, and DrugBank for Drug Terms:
+*Searching MeSH, RXNorm, Wikidata, PubChem, DrugBank, and LCSH for Drug Terms:
 
 1. Enter a drug term in the space provided.
 2. Select the sources you would like to search.
