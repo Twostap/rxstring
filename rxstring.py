@@ -49,6 +49,7 @@ def drugdata():
        WikidataSearch = request.form.get("WikidataSearch")
        PubChemSearch = request.form.get("PubChemSearch")
        DrugBankSearch = request.form.get("DrugBankSearch")
+       LOCSearch = request.form.get("LOCSearch")
        EmtreeSearch = request.form.get("EmtreeSearch")
        PhraseSearch = request.form.get("PhraseSearch")
        TruncationSymbol = request.form.get("TruncationSymbol")
@@ -418,7 +419,34 @@ def drugdata():
                DrugBankTerms = 0
                DrugBankMatch = "Did not search DrugBank"
 
+             if LOCSearch=="on":
+             
+                 LOCURL = "https://id.loc.gov/authorities/subjects/suggest2"
 
+                 LOCPARAMS = {'q':drug}
+
+                 LOC = requests.get(url = LOCURL, params = LOCPARAMS)
+                                
+                 LOCdata = LOC.json()
+
+                 LOCTerms = []
+                 
+                 for LOCresult in LOCdata["hits"]:
+                           LOCURI = LOCresult["uri"]
+                           LOCid = LOCURI.replace("http://id.loc.gov/authorities/subjects/","")
+                           LOCtermcheck = 1
+                           for LOCalts in LOCresult["more"]["variantLabels"]:
+                               LOCTerms.append(LOCalts)
+                 if LOCtermcheck==1:
+                           LOCTerms = " OR ".join(LOCTerms)
+                           LOCTerms = LOCTerms.replace(" (Trademark)","")
+                 if LOCTerms==[]:
+                           LOCMatch = "No results in Library of Congress"
+                           LOCtermcheck = 0
+                 
+             else:
+                 LOCtermcheck = 0
+                 LOCMatch = "Did not search Library of Congress"
 
 	     #Emtree
 
@@ -460,9 +488,9 @@ def drugdata():
                  
 
 #Build results page based on values passed from each section above
-             if MeSHSearch==None and RXSearch==None and WikidataSearch==None and PubChemSearch==None and DrugBankSearch==None and EmtreeSearch==None:
+             if MeSHSearch==None and RXSearch==None and WikidataSearch==None and PubChemSearch==None and DrugBankSearch==None and EmtreeSearch==None and LOCSearch==None:
                  completestring = "No sources were searched. Please select a data source for your query."
-             elif combined==0 and MESHtermcheck==0 and rxnormstring==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms==0:
+             elif combined==0 and MESHtermcheck==0 and rxnormstring==0 and PubTerms==0 and DrugBankTerms==0 and EmtreeTerms==0 and LOCtermcheck==0:
                  completestring = "Search term returned no results in selected resources.<p>No Emtree file was uploaded.</p>"
              else:
                  completestringarray = []
@@ -491,13 +519,18 @@ def drugdata():
                   completestringarray.append(DrugBankTerms)
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
+                 if LOCtermcheck!=0:
+                  LOCHTML = "<br><br><b>LOC ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/' + LOCid + "'>" + LOCid + "</a>"
+                  completestringarray.append(LOCTerms)
+                 else:
+                  LOCHTML = "<br><br>" + LOCMatch		     
                  if EmtreeTerms!=0:
                   EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename
                   completestringarray.append(EmtreeTerms)
                  else:
                   EmtreeHTML = "<br><br>" + EmtreeMatch
                  completestringjoined = " OR ".join(completestringarray)
-                 completestring = MESHHTML + RxHTML + WikidataHTML + PubHTML + DrugBankHTML + EmtreeHTML + "<br><br><h2>Search string</h2>" + completestringjoined
+                 completestring = MESHHTML + RxHTML + WikidataHTML + PubHTML + DrugBankHTML + LOCHTML + EmtreeHTML + "<br><br><h2>Search string</h2>" + completestringjoined
 	       
              if "<br><br><h2>Search string</h2>" in completestring:
 
@@ -587,5 +620,6 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
