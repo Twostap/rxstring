@@ -520,7 +520,7 @@ def drugdata():
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
-                  LOCHTML = "<br><br><b>LOC ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>"
+                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>"
                   completestringarray.append(LOCTerms)
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
@@ -620,6 +620,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
