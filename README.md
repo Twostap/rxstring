@@ -1,4 +1,4 @@
-RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, and Emtree for drug terms.
+RxString queries MeSH, RxNorm, Wikidata, PubChem, DrugBank, LCSH and Emtree for drug terms.
 
 Results are combined into a single search string that can be used to search bibliographic databases.
 
