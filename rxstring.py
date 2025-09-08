@@ -609,6 +609,7 @@ def drugdata():
              FormattedPage = unidecode(FormattedPage)
              FormattedPage = FormattedPage.replace("(r)","")
              FormattedPage = FormattedPage.replace("[","")
+             FormattedPage = FormattedPage.replace("|","")
              FormattedPage = FormattedPage.replace("]","")
              FormattedPage = FormattedPage.replace("~","-")
              FormattedPage = FormattedPage.replace("#","")
@@ -622,6 +623,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
