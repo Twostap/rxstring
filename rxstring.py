@@ -82,7 +82,9 @@ def drugdata():
                    MESHURL = "https://id.nlm.nih.gov/mesh/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%20PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20owl%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%20PREFIX%20meshv%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2Fvocab%23%3E%20PREFIX%20mesh%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F%3E%20PREFIX%20mesh2024%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2024%2F%3E%20PREFIX%20mesh2023%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2023%2F%3E%20PREFIX%20mesh2022%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2022%2F%3E%20SELECT%20DISTINCT%20%3Fdescriptor%20FROM%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%3E%20WHERE%20%7B%20values%20%3Fdrug%20%7B%22" + drug +"%22%40en%20%22" + drugallcaps + "%22%40en%20%22" + drugcapital + "%22%40en%7D%20.%20%20%20%20%20%20%20%20%20%3Fterm%20meshv%3AaltLabel%7Cmeshv%3AprefLabel%20%3Fdrug%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20meshv%3Aterm%7Cmeshv%3ApreferredTerm%20%3Fterm%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20a%20meshv%3AConcept%20.%20%20%20%20%20%20%20%20%20%3Fdescriptor%20meshv%3Aconcept%7Cmeshv%3ApreferredConcept%20%3Fconcept%20.%20%20%20%20%20%20%20%20%20%20%3Fdescriptor%20a%20meshv%3ATopicalDescriptor%20.%7D&format=JSON&inference=false&offset=0&limit=1000"
 
                    MESHresponse = requests.get(url = MESHURL)
+				   print (MESHresponse)
                    MESHdata = MESHresponse.json()
+				   print (MESHdata)
                    for result in MESHdata["results"]["bindings"]:
                                MESHnode = result["descriptor"]["value"]
 #Testing if the query identified a term. If it did, get entry terms and append to MESHTerms array.
@@ -623,6 +625,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
