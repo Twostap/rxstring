@@ -55,6 +55,7 @@ def drugdata():
        TruncationSymbol = request.form.get("TruncationSymbol")
        drugallcaps = drug.upper()
        drugcapital = drug.capitalize()
+       drugtitle = drug.title()
       
 #Can use test if in virtual environment, noted out for now
        #if sys.prefix != sys.base_prefix:
@@ -79,7 +80,7 @@ def drugdata():
 
                    MESHterms = []
 #MESH SPARQL Query for finding terms
-                   MESHURL = "https://id.nlm.nih.gov/mesh/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%20PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20owl%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%20PREFIX%20meshv%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2Fvocab%23%3E%20PREFIX%20mesh%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F%3E%20PREFIX%20mesh2024%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2024%2F%3E%20PREFIX%20mesh2023%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2023%2F%3E%20PREFIX%20mesh2022%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2022%2F%3E%20SELECT%20DISTINCT%20%3Fdescriptor%20FROM%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%3E%20WHERE%20%7B%20values%20%3Fdrug%20%7B%22" + drug +"%22%40en%20%22" + drugallcaps + "%22%40en%20%22" + drugcapital + "%22%40en%7D%20.%20%20%20%20%20%20%20%20%20%3Fterm%20meshv%3AaltLabel%7Cmeshv%3AprefLabel%20%3Fdrug%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20meshv%3Aterm%7Cmeshv%3ApreferredTerm%20%3Fterm%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20a%20meshv%3AConcept%20.%20%20%20%20%20%20%20%20%20%3Fdescriptor%20meshv%3Aconcept%7Cmeshv%3ApreferredConcept%20%3Fconcept%20.%20%20%20%20%20%20%20%20%20%20%3Fdescriptor%20a%20meshv%3ATopicalDescriptor%20.%7D&format=JSON&inference=false&offset=0&limit=1000"
+                   MESHURL = "https://id.nlm.nih.gov/mesh/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%20PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20owl%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%20PREFIX%20meshv%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2Fvocab%23%3E%20PREFIX%20mesh%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F%3E%20PREFIX%20mesh2024%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2024%2F%3E%20PREFIX%20mesh2023%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2023%2F%3E%20PREFIX%20mesh2022%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2022%2F%3E%20SELECT%20DISTINCT%20%3Fdescriptor%20FROM%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%3E%20WHERE%20%7B%20values%20%3Fdrug%20%7B%22" + drug +"%22%40en%20%22" + drugtitle +"%22%40en%20%22" + drugallcaps + "%22%40en%20%22" + drugcapital + "%22%40en%7D%20.%20%20%20%20%20%20%20%20%20%3Fterm%20meshv%3AaltLabel%7Cmeshv%3AprefLabel%20%3Fdrug%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20meshv%3Aterm%7Cmeshv%3ApreferredTerm%20%3Fterm%20.%20%20%20%20%20%20%20%20%20%3Fconcept%20a%20meshv%3AConcept%20.%20%20%20%20%20%20%20%20%20%3Fdescriptor%20meshv%3Aconcept%7Cmeshv%3ApreferredConcept%20%3Fconcept%20.%20%20%20%20%20%20%20%20%20%20%3Fdescriptor%20a%20meshv%3ATopicalDescriptor%20.%7D&format=JSON&inference=false&offset=0&limit=1000"
 
                    MESHresponse = requests.get(url = MESHURL)
                    MESHdata = MESHresponse.json()
@@ -203,8 +204,9 @@ def drugdata():
                  term = '"' + drug + '"@en'
                  drugcapitalterm = '"' + drugcapital + '"@en'    
                  drugallcapsterm = '"' + drugallcaps + '"@en'  
+				 drugtitleterm = '"' + drugtitle + '"@en'  
 #Wikidata Query - looks for the drug term all caps and no caps in alt label or label and is "instance of" or "subclass of" drug, medication, or chemical compound or "has use" of medication
-                 queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
+                 queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
                  sparql.setQuery(queryterm)
                  sparql.setReturnFormat(JSON)
                  ret = sparql.query().convert()
@@ -623,6 +625,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
