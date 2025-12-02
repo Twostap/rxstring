@@ -545,8 +545,6 @@ def drugdata():
                  dedupedlist = sorted(dedupedlist)
                  completeintro = MESHHTML + RxHTML + WikidataHTML + PubHTML + DrugBankHTML + LOCHTML + EmtreeHTML
 	       
-             if "<br><br><h2>Search string</h2>" in completestring:
-				 
 #If phrase search is on put quotation marks around each separate term when joining
                  if PhraseSearch=="on" and TruncationSymbol=="on":
 
@@ -623,6 +621,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
