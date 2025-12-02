@@ -539,6 +539,7 @@ def drugdata():
                  completestringjoined = completestringjoined.replace("+-","")
                  completestringjoined = completestringjoined.replace("-+","")
                  completestringjoined = completestringjoined.replace("+","")
+                 completestringjoined = completestringjoined.replace("|","")
                  completestringjoined = completestringjoined.lower()
                  completestringlist = completestringjoined.split(" or ")
                  dedupedlist = list(dict.fromkeys(completestringlist))
@@ -621,6 +622,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
