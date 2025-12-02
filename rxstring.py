@@ -544,6 +544,7 @@ def drugdata():
                  completeintro = completesplit[0]
                  deduped = completelower.split(" or ")
                  dedupedlist = list(dict.fromkeys(deduped))
+				 dedupedlist = dedupedlist.sort()
                  
 #If phrase search is on put quotation marks around each separate term when joining
                  if PhraseSearch=="on" and TruncationSymbol=="on":
@@ -625,6 +626,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
