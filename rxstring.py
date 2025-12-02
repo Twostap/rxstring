@@ -204,7 +204,7 @@ def drugdata():
                  term = '"' + drug + '"@en'
                  drugcapitalterm = '"' + drugcapital + '"@en'    
                  drugallcapsterm = '"' + drugallcaps + '"@en'  
-				 drugtitleterm = '"' + drugtitle + '"@en'  
+                 drugtitleterm = '"' + drugtitle + '"@en'  
 #Wikidata Query - looks for the drug term all caps and no caps in alt label or label and is "instance of" or "subclass of" drug, medication, or chemical compound or "has use" of medication
                  queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
                  sparql.setQuery(queryterm)
@@ -625,6 +625,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
