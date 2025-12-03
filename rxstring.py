@@ -18,7 +18,7 @@
 #Name: RxString
 #Description: This code produces a flask app that queries data sources for drug terms and creates a search string for use in bibliographic database searching
 #Author: Tyler Ostapyk (tyler.ostapyk@umanitoba.ca)
-#Date: December 2, 2025
+#Date: December 3, 2025
 
 # importing Flask and other modules
 from flask import Flask, request, render_template
@@ -53,6 +53,8 @@ def drugdata():
        EmtreeSearch = request.form.get("EmtreeSearch")
        PhraseSearch = request.form.get("PhraseSearch")
        TruncationSymbol = request.form.get("TruncationSymbol")
+       TruncationFirst = request.form.get("TruncationFirst")
+       TruncationSecond = request.form.get("TruncationSecond")
        drugallcaps = drug.upper()
        drugcapital = drug.capitalize()
        drugtitle = drug.title()
@@ -546,63 +548,140 @@ def drugdata():
                  dedupedlist = sorted(dedupedlist)
                  completeintro = MESHHTML + RxHTML + WikidataHTML + PubHTML + DrugBankHTML + LOCHTML + EmtreeHTML
 	       
+                
+           
+           
 #If phrase search is on put quotation marks around each separate term when joining
-                 if PhraseSearch=="on" and TruncationSymbol=="on":
+                 if PhraseSearch=="on":
+                     if TruncationSymbol=="on":
+                            dedupedstring = '*" OR "'.join(dedupedlist)
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '*"' 
+                     elif TruncationSecond=="on":
+                            TwoWordList = []
+                            for x in dedupedlist:
+                               TwoWordCheck = len(x.split())     
+                               if TwoWordCheck >=2:           
+                                          TwoWordTerm = x.split()[:2]
+                                          TwoWordTerm = " ".join(TwoWordTerm)
+                                          TwoWordList.append(TwoWordTerm)
+                               else:
+                                          TwoWordTerm = x.split()[:1] 
+                                          TwoWordTerm = "".join(TwoWordTerm)                                          
+                                          TwoWordList.append(TwoWordTerm)                                         
+                            dedupedlist = list(dict.fromkeys(TwoWordList))
+                            dedupedstring = '*" OR "'.join(dedupedlist)
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '*"'
 
-                     dedupedstring = '*" OR "'.join(dedupedlist)
-                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '*"' 
-		 
-                 elif PhraseSearch=="on" and TruncationSymbol==None:
-                     
-                     dedupedstring = '" OR "'.join(dedupedlist)
-                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"' 
+                     elif TruncationFirst=="on":
+                            OneWordList = [x.split()[0] for x in dedupedlist]
+                            dedupedlist = list(dict.fromkeys(OneWordList))
+                            dedupedstring = '*" OR "'.join(dedupedlist)
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '*"'
+                     else:  
+                            dedupedstring = '" OR "'.join(dedupedlist)
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + '"' + dedupedstring + '"'                         
 
-                 elif PhraseSearch==None and TruncationSymbol=="on":
-			 
-                     dedupedstring = "* OR ".join(dedupedlist) 
-                     dedupedstring = dedupedstring.replace("+-","")
-                     dedupedstring = dedupedstring.replace("-+","")
-                     dedupedstring = dedupedstring.replace(' and ',' "and" ')
-                     dedupedstring = dedupedstring.replace(' or ',' "or" ')
-                     dedupedstring = dedupedstring.replace(' not ',' "not" ')
-                     dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
-                     dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
-                     dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
-                     dedupedstring = dedupedstring.replace('S2-','"S2"-')
-                     dedupedstring = dedupedstring.replace('S1-','"S1"-')
-                     dedupedstring = dedupedstring.replace('s2-','"s2"-')
-                     dedupedstring = dedupedstring.replace('s1-','"s1"-')
-                     dedupedstring = dedupedstring.replace('-s1','-"s1"')
-                     dedupedstring = dedupedstring.replace('-S1','-"S1"')
-                     dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
-                     dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
-                     dedupedstring = dedupedstring.replace(' use ',' "use" ')
-                     dedupedstring = dedupedstring.replace("/"," ")
-                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto;} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='window.history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring + "*"	     
-	                 	     
-                 else:
+                 elif PhraseSearch==None:
 
-                     dedupedstring = " OR ".join(dedupedlist) 
-                     dedupedstring = dedupedstring.replace("+-","")
-                     dedupedstring = dedupedstring.replace("-+","")
-                     dedupedstring = dedupedstring.replace(' and ',' "and" ')
-                     dedupedstring = dedupedstring.replace(' or ',' "or" ')
-                     dedupedstring = dedupedstring.replace(' not ',' "not" ')
-                     dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
-                     dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
-                     dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
-                     dedupedstring = dedupedstring.replace('S2-','"S2"-')
-                     dedupedstring = dedupedstring.replace('S1-','"S1"-')
-                     dedupedstring = dedupedstring.replace('s2-','"s2"-')
-                     dedupedstring = dedupedstring.replace('s1-','"s1"-')
-                     dedupedstring = dedupedstring.replace('-s1','-"s1"')
-                     dedupedstring = dedupedstring.replace('-S1','-"S1"')
-                     dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
-                     dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
-                     dedupedstring = dedupedstring.replace(' use ',' "use" ')
-                     dedupedstring = dedupedstring.replace("/"," ")
-                     FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto;} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='window.history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring
+                     if TruncationSymbol=="on":
+                            dedupedstring = "* OR ".join(dedupedlist)
+                            dedupedstring = dedupedstring.replace("+-","")
+                            dedupedstring = dedupedstring.replace("-+","")
+                            dedupedstring = dedupedstring.replace(' and ',' "and" ')
+                            dedupedstring = dedupedstring.replace(' or ',' "or" ')
+                            dedupedstring = dedupedstring.replace(' not ',' "not" ')
+                            dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
+                            dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
+                            dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
+                            dedupedstring = dedupedstring.replace('S2-','"S2"-')
+                            dedupedstring = dedupedstring.replace('S1-','"S1"-')
+                            dedupedstring = dedupedstring.replace('s2-','"s2"-')
+                            dedupedstring = dedupedstring.replace('s1-','"s1"-')
+                            dedupedstring = dedupedstring.replace('-s1','-"s1"')
+                            dedupedstring = dedupedstring.replace('-S1','-"S1"')
+                            dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
+                            dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
+                            dedupedstring = dedupedstring.replace(' use ',' "use" ')
+                            dedupedstring = dedupedstring.replace("/"," ")
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring + "*" 
+                     elif TruncationSecond=="on":
+                            TwoWordList = []
+                            for x in dedupedlist:
+                               TwoWordCheck = len(x.split())     
+                               if TwoWordCheck >=2:           
+                                          TwoWordTerm = x.split()[:2]
+                                          TwoWordTerm = " ".join(TwoWordTerm)
+                                          TwoWordList.append(TwoWordTerm)
+                               else:
+                                          TwoWordTerm = x.split()[:1] 
+                                          TwoWordTerm = "".join(TwoWordTerm)                                          
+                                          TwoWordList.append(TwoWordTerm)    
+                            dedupedlist = list(dict.fromkeys(TwoWordList))
+                            dedupedstring = "* OR ".join(dedupedlist)
+                            dedupedstring = dedupedstring.replace("+-","")
+                            dedupedstring = dedupedstring.replace("-+","")
+                            dedupedstring = dedupedstring.replace(' and ',' "and" ')
+                            dedupedstring = dedupedstring.replace(' or ',' "or" ')
+                            dedupedstring = dedupedstring.replace(' not ',' "not" ')
+                            dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
+                            dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
+                            dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
+                            dedupedstring = dedupedstring.replace('S2-','"S2"-')
+                            dedupedstring = dedupedstring.replace('S1-','"S1"-')
+                            dedupedstring = dedupedstring.replace('s2-','"s2"-')
+                            dedupedstring = dedupedstring.replace('s1-','"s1"-')
+                            dedupedstring = dedupedstring.replace('-s1','-"s1"')
+                            dedupedstring = dedupedstring.replace('-S1','-"S1"')
+                            dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
+                            dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
+                            dedupedstring = dedupedstring.replace(' use ',' "use" ')
+                            dedupedstring = dedupedstring.replace("/"," ")
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring + "*"
 
+                     elif TruncationFirst=="on":
+                            OneWordList = [x.split()[0] for x in dedupedlist]
+                            dedupedlist = list(dict.fromkeys(OneWordList))
+                            dedupedstring = "* OR ".join(dedupedlist)
+                            dedupedstring = dedupedstring.replace("+-","")
+                            dedupedstring = dedupedstring.replace("-+","")
+                            dedupedstring = dedupedstring.replace(' and ',' "and" ')
+                            dedupedstring = dedupedstring.replace(' or ',' "or" ')
+                            dedupedstring = dedupedstring.replace(' not ',' "not" ')
+                            dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
+                            dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
+                            dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
+                            dedupedstring = dedupedstring.replace('S2-','"S2"-')
+                            dedupedstring = dedupedstring.replace('S1-','"S1"-')
+                            dedupedstring = dedupedstring.replace('s2-','"s2"-')
+                            dedupedstring = dedupedstring.replace('s1-','"s1"-')
+                            dedupedstring = dedupedstring.replace('-s1','-"s1"')
+                            dedupedstring = dedupedstring.replace('-S1','-"S1"')
+                            dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
+                            dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
+                            dedupedstring = dedupedstring.replace(' use ',' "use" ')
+                            dedupedstring = dedupedstring.replace("/"," ")
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring + "*"
+                     else:  
+                            dedupedstring = " OR ".join(dedupedlist)
+                            dedupedstring = dedupedstring.replace("+-","")
+                            dedupedstring = dedupedstring.replace("-+","")
+                            dedupedstring = dedupedstring.replace(' and ',' "and" ')
+                            dedupedstring = dedupedstring.replace(' or ',' "or" ')
+                            dedupedstring = dedupedstring.replace(' not ',' "not" ')
+                            dedupedstring = dedupedstring.replace(' LE ',' "LE" ')
+                            dedupedstring = dedupedstring.replace(' PM ',' "PM" ')
+                            dedupedstring = dedupedstring.replace(' PT ',' "PT" ')
+                            dedupedstring = dedupedstring.replace('S2-','"S2"-')
+                            dedupedstring = dedupedstring.replace('S1-','"S1"-')
+                            dedupedstring = dedupedstring.replace('s2-','"s2"-')
+                            dedupedstring = dedupedstring.replace('s1-','"s1"-')
+                            dedupedstring = dedupedstring.replace('-s1','-"s1"')
+                            dedupedstring = dedupedstring.replace('-S1','-"S1"')
+                            dedupedstring = dedupedstring.replace(' CT ',' "CT" ')
+                            dedupedstring = dedupedstring.replace(' RP ',' "RP" ')
+                            dedupedstring = dedupedstring.replace(' use ',' "use" ')
+                            dedupedstring = dedupedstring.replace("/"," ")
+                            FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring                         
 
              #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
              FormattedPage = unidecode(FormattedPage)
@@ -622,6 +701,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
