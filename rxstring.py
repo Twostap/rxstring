@@ -44,6 +44,7 @@ def drugdata():
        efile = request.files.get("emtreefile")
        # getting input with name = fname in HTML form
        drug = request.form.get("dname").lower()
+       drug = drug.replace('"',"")
        MeSHSearch = request.form.get("MeSHSearch")
        RXSearch = request.form.get("RXSearch")
        WikidataSearch = request.form.get("WikidataSearch")
@@ -703,6 +704,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
