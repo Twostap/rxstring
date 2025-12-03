@@ -20,7 +20,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EESD1S9033"></script>
 <script src="{{ url_for('static', filename='analytics.js') }}"></script>
 </head>
-<body>
+<body onload="checktruncation()">
 <div class="logo" style="margin-top:10px;">
 <img class="logoimage" width="100px" src="https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png"/>
 </div>
@@ -36,16 +36,29 @@
 <td style="80%"><input type="text" id="drugname" name="dname" placeholder="enter a drug name"></td>
 </tr>
 <tr>
-<td style="width:20%; padding-left:10px;"><label for="PhraseSearch"><b>Phrase search</b></label></td>
-<td style="width:80%;"><input type="checkbox" id="PhraseSearch" name="PhraseSearch" /></td>
+<td style="width:35%; padding-left:10px;"><label for="PhraseSearch"><b>Phrase search</b></label></td>
+<td style="width:65%;"><input type="checkbox" id="PhraseSearch" name="PhraseSearch" /></td>
 </tr>
 <tr>
-<td style="width:20%; padding-left:10px;"><label for="TruncationSymbol"><b>Truncation (*)</b></label></td>
-<td style="width:80%;"><input type="checkbox" id="TruncationSymbol" name="TruncationSymbol" /></td>
+<td style="width:35%; padding-left:10px;"><label for="Truncation"><b>Truncation (*)</b></label></td>
+<td style="width:65%;"><input type="checkbox" id="Truncation" name="Truncation" onclick="TruncationToggle()" /></td>
+</tr>
+<tr id="TruncationOption" style="display:none;"><td style="padding-left:10px;">Select one of the options:</td></tr>
+<tr id="TruncationFirstRow" style="display: none">
+<td style="width:35%; padding-left:50px;"><label for="TruncationFirst">Truncate at first word</label></td>
+<td style="width:65%;"><input type="checkbox" id="TruncationFirst" name="TruncationFirst" onclick="TruncationFirstToggle()" /></td>
+</tr>
+<tr id="TruncationSecondRow" style="display:none">
+<td style="width:35%; padding-left:50px;"><label for="TruncationSecond">Truncate at second word</label></td>
+<td style="width:65%;"><input type="checkbox" id="TruncationSecond" name="TruncationSecond" onclick="TruncationSecondToggle()" /></td>
+</tr>
+<tr id="TruncationSymbolRow" style="display:none;">
+<td style="width:35%; padding-left:50px;"><label for="TruncationSymbol">Truncate at last word</label></td>
+<td style="width:65%;"><input type="checkbox" id="TruncationSymbol" name="TruncationSymbol" onclick="TruncationSymbolToggle()" /></td>
 </tr>
 <tr>
-<td style="width:20%; vertical-align:top; padding-left:10px;"><b>Data sources</b></td>
-<td style="width:80%">
+<td style="width:35%; vertical-align:top; padding-left:10px;"><b>Data sources</b></td>
+<td style="width:65%">
 <table class="sources" style="border:0; font-size:.9em">
 <tr><td width="100%"><input type="checkbox" id="MeSHSearch" name="MeSHSearch" /><label for="MeSHSearch">MeSH</label></td></tr>
 <tr><td><input type="checkbox" id="RXSearch" name="RXSearch" /><label for="RXSearch">RXNorm</label></td></tr>
@@ -59,10 +72,78 @@
 </tr>
 </table>
 <button type="submit" style="color: white; background-color: #01789f; border:1px solid black; padding:4px 10px">Search</button><br><br>
-<input type="reset" style="font-size: .7em; border: none; box-shadow: 1px 1px 1px 0 grey; color: black; background-color: #F8F8F8; padding: 2px 5px" value="Clear Form">
+<input type="reset" style="font-size: .7em; border: none; box-shadow: 1px 1px 1px 0 grey; color: black; background-color: #F8F8F8; padding: 2px 5px" onclick="cleartruncation()" value="Clear Form">
 </form>
 </td></tr></table>
 </div>
 <div class="footer" style="margin-top: auto;"><p style="font-size:.6em;"><br><br>© Copyright 2025 Tyler Ostapyk</p></div>
 </body>
+<script type="text/javascript">
+function checktruncation() {
+	if (document.getElementById('Truncation').checked) {
+		document.getElementById('TruncationSymbolRow').style.display = '';
+		document.getElementById('TruncationFirstRow').style.display = '';
+		document.getElementById('TruncationSecondRow').style.display = '';
+		document.getElementById('TruncationOption').style.display = '';
+		} 
+	}
+
+function cleartruncation() {
+	document.getElementById('TruncationSymbolRow').style.display = 'none';
+	document.getElementById('TruncationFirstRow').style.display = 'none';
+	document.getElementById('TruncationSecondRow').style.display = 'none';
+	document.getElementById('TruncationOption').style.display = 'none';
+	 
+	}
+
+
+function TruncationToggle() {
+	if (document.getElementById('Truncation').checked) {
+		document.getElementById('TruncationSymbolRow').style.display = '';
+		document.getElementById('TruncationFirstRow').style.display = '';
+		document.getElementById('TruncationSecondRow').style.display = '';
+		document.getElementById('TruncationOption').style.display = '';
+		document.getElementById('TruncationSymbol').checked = true;
+		} else {
+		document.getElementById('TruncationSymbolRow').style.display = 'none';
+		document.getElementById('TruncationFirstRow').style.display = 'none';
+		document.getElementById('TruncationSecondRow').style.display = 'none';
+		document.getElementById('TruncationOption').style.display = 'none';
+		document.getElementById('TruncationFirst').checked = false;
+		document.getElementById('TruncationSecond').checked = false;
+		document.getElementById('TruncationSymbol').checked = false;
+		document.getElementById('TruncationSecond').removeAttribute("disabled")
+		document.getElementById('TruncationFirst').removeAttribute("disabled")
+		document.getElementById('TruncationSymbol').removeAttribute("disabled")
+	}
+}
+
+function TruncationSymbolToggle() {
+	if (document.getElementById('TruncationSymbol').checked) {
+		document.getElementById('TruncationFirst').checked = false;
+		document.getElementById('TruncationSecond').checked = false;
+		}
+	else {
+		}
+	}
+
+function TruncationFirstToggle() {
+	if (document.getElementById('TruncationFirst').checked) {
+		document.getElementById('TruncationSymbol').checked = false;
+		document.getElementById('TruncationSecond').checked = false;
+		}
+	else {
+
+		}
+	}
+
+function TruncationSecondToggle() {
+	if (document.getElementById('TruncationSecond').checked) {
+		document.getElementById('TruncationSymbol').checked = false;
+		document.getElementById('TruncationFirst').checked = false;
+		}
+	else {
+		}
+	}
+</script>
 </html>
