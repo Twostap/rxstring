@@ -102,6 +102,7 @@ def drugdata():
                                           MESHtermstring = ' OR '.join(MESHterms)
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
+                                          MESHtermstring = MESHtermstring.replace(".","")
                                           MESHtermcheck = 1              
 #Check if MESHterms array is still empty, and if it is pass 0 and "no results in MESH"
                    if MESHterms==[]:
@@ -702,6 +703,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
