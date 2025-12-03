@@ -547,6 +547,7 @@ def drugdata():
                  completestringjoined = completestringjoined.replace("|","")
                  completestringjoined = completestringjoined.lower()
                  completestringlist = completestringjoined.split(" or ")
+				 completestringlist.append(drug)
                  dedupedlist = list(dict.fromkeys(completestringlist))
                  dedupedlist = sorted(dedupedlist)
                  completeintro = MESHHTML + RxHTML + WikidataHTML + PubHTML + DrugBankHTML + LOCHTML + EmtreeHTML
@@ -704,6 +705,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
