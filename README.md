@@ -7,7 +7,7 @@ Results are combined into a single search string that can be used to search bibl
 1. Enter a drug term in the space provided.
 2. Select the sources you would like to search.
 3. The phrase search option will add quotation marks around each term in the resulting search string that is produced.
-4. The truncation option will add an asterisk (*) following each term to search for alternate word endings in some databases. The first word option includes only the first word for each term and the second word option includes only the first two words for each term.
+4. The truncation option will add an asterisk (*) following each term to search for alternate word endings in some databases. The first word option includes only the first word for each term and the second word option includes only the first two words for each term. Note that deduplication is done on the terms after they have been truncated.
 5. Click Search.
 6. Copy the search string on the results page and paste it into a bibliographic database to search.
 
