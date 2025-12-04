@@ -104,6 +104,7 @@ def drugdata():
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
                                           MESHtermstring = MESHtermstring.replace(".","")
+                                          MESHtermstring = MESHtermstring.replace(",","")
                                           MESHtermcheck = 1              
 #Check if MESHterms array is still empty, and if it is pass 0 and "no results in MESH"
                    if MESHterms==[]:
@@ -190,6 +191,7 @@ def drugdata():
 
                                rxnormstring = ' OR '.join(rxalt)
                                rxnormstring = rxnormstring.replace(".","")
+                               rxnormstring = rxnormstring.replace(",","")
 
              else:
                  rxnormstring = 0
@@ -386,6 +388,7 @@ def drugdata():
                            PubTerms = PubTerms.replace("@","")
                            PubTerms = PubTerms.replace('"','')
                            PubTerms = PubTerms.replace('^','')
+                           PubTerms = PubTerms.replace(',','')
                  
              else:
 
@@ -415,7 +418,7 @@ def drugdata():
                                           DrugBankTerms = synonym.replace(" | "," OR ")
                                           DrugBankTerms = DrugBankTerms.replace("[","")
                                           DrugBankTerms = DrugBankTerms.replace("]","")
-                                          DrugBankTerms = DrugBankTerms.replace(", ","-")
+                                          DrugBankTerms = DrugBankTerms.replace(",","")
                                           DrugBankTerms = DrugBankTerms.replace(".","")
                                           DrugBankTerms = DrugBankTerms.replace("(","")
                                           DrugBankTerms = DrugBankTerms.replace(")","")
@@ -705,6 +708,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
