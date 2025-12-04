@@ -544,10 +544,22 @@ def drugdata():
                  else:
                   EmtreeHTML = "<br><br>" + EmtreeMatch
                  completestringjoined = " OR ".join(completestringarray)
+				 
+#Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
+                 completestringjoined = unidecode(completestringjoined)
+                 completestringjoined = FormattedPage.replace("(r)","")
+                 completestringjoined = FormattedPage.replace("[","")
+                 completestringjoined = FormattedPage.replace("|","")
+                 completestringjoined = FormattedPage.replace("]","")
+                 completestringjoined = FormattedPage.replace("~","-")
+                 completestringjoined = FormattedPage.replace("#","")
+                 completestringjoined = FormattedPage.replace("_","-")
+                 completestringjoined = FormattedPage.replace(",","")
                  completestringjoined = completestringjoined.replace("+-","")
                  completestringjoined = completestringjoined.replace("-+","")
                  completestringjoined = completestringjoined.replace("+","")
                  completestringjoined = completestringjoined.replace("|","")
+                 completestringjoined = completestringjoined.replace("/"," ")
                  completestringjoined = completestringjoined.lower()
                  completestringlist = completestringjoined.split(" or ")
                  completestringlist.append(drug)
@@ -690,16 +702,6 @@ def drugdata():
                             dedupedstring = dedupedstring.replace("/"," ")
                             FormattedPage = "<html><head><title>RxString Results</title><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>h2 {font-size:1.4em;} .resultslogo {float:left;} .responsecontent {margin-left:120px; margin-top:25px;} @media only screen and (max-width: 600px) {.resultslogo {grid-area: 1 / span 3; float:none; height:auto;} .responsecontent {grid-area: 2 / span 3; margin-left:auto; margin-top:auto} .resultsfooter {grid-area: 3 / span 3;} .resultslogoimage {display:block; margin-left:auto; margin-right: auto;}</style>" + googleanalytics + "</head><body>" + "<div class='resultslogo' style='margin-top:10px'><img class='resultslogoimage' width='100px' src='https://raw.githubusercontent.com/Twostap/rxstring/refs/heads/main/rxstringcropped.png'/></div><div class='responsecontent' style='font-family:arial; font-size:.8em'><h2>Query Responses</h2>" + completeintro +  "<br><br>" +  "<form><input type='button' style='color: white; background-color: #01789f; border:1px solid black; padding:4px 10px' value='New search' onclick='history.go(-1)'></form>" + "<h2>Search string</h2>" + dedupedstring                         
 
-             #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
-             FormattedPage = unidecode(FormattedPage)
-             FormattedPage = FormattedPage.replace("(r)","")
-             FormattedPage = FormattedPage.replace("[","")
-             FormattedPage = FormattedPage.replace("|","")
-             FormattedPage = FormattedPage.replace("]","")
-             FormattedPage = FormattedPage.replace("~","-")
-             FormattedPage = FormattedPage.replace("#","")
-             FormattedPage = FormattedPage.replace("_","-")
-             FormattedPage = FormattedPage.replace(","," ")
 #Add copyright after running unidecode or it will appear as (c)
              FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>"
              
@@ -708,6 +710,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
