@@ -547,14 +547,14 @@ def drugdata():
 				 
 #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
                  completestringjoined = unidecode(completestringjoined)
-                 completestringjoined = FormattedPage.replace("(r)","")
-                 completestringjoined = FormattedPage.replace("[","")
-                 completestringjoined = FormattedPage.replace("|","")
-                 completestringjoined = FormattedPage.replace("]","")
-                 completestringjoined = FormattedPage.replace("~","-")
-                 completestringjoined = FormattedPage.replace("#","")
-                 completestringjoined = FormattedPage.replace("_","-")
-                 completestringjoined = FormattedPage.replace(",","")
+                 completestringjoined = completestringjoined.replace("(r)","")
+                 completestringjoined = completestringjoined.replace("[","")
+                 completestringjoined = completestringjoined.replace("|","")
+                 completestringjoined = completestringjoined.replace("]","")
+                 completestringjoined = completestringjoined.replace("~","-")
+                 completestringjoined = completestringjoined.replace("#","")
+                 completestringjoined = completestringjoined.replace("_","-")
+                 completestringjoined = completestringjoined.replace(",","")
                  completestringjoined = completestringjoined.replace("+-","")
                  completestringjoined = completestringjoined.replace("-+","")
                  completestringjoined = completestringjoined.replace("+","")
@@ -710,6 +710,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
