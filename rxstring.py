@@ -389,6 +389,7 @@ def drugdata():
                            PubTerms = PubTerms.replace('"','')
                            PubTerms = PubTerms.replace('^','')
                            PubTerms = PubTerms.replace(',','')
+                           PubTerms = PubTerms.replace('?','')
                  
              else:
 
@@ -710,6 +711,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
