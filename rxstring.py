@@ -511,12 +511,12 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .8em'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
+                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
                   completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
-                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .8em'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
+                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
                   completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
@@ -738,6 +738,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
