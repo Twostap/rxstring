@@ -708,7 +708,7 @@ def drugdata():
                             function seeMeSHresults() { 
                 				if (document.getElementById('MeSHSeparateResults').style.display == 'none') { 
                     				document.getElementById('MeSHSeparateResults').style.display = 'block';
-                    				document.getElementById('MeSHButton').innerHTML = '—';
+                    				document.getElementById('MeSHButton').innerHTML = '-';
                     			} 
                 				else { 
                    					document.getElementById('MeSHSeparateResults').style.display = 'none';
@@ -719,7 +719,7 @@ def drugdata():
              			function seeRXNormresults() { 
                 			if (document.getElementById('RXNormSeparateResults').style.display == 'none') { 
                     			document.getElementById('RXNormSeparateResults').style.display = 'block';
-                    			document.getElementById('RXNormButton').innerHTML = '—';
+                    			document.getElementById('RXNormButton').innerHTML = '-';
                     		} 
                 			else { 
                    				document.getElementById('RXNormSeparateResults').style.display = 'none';
@@ -738,6 +738,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
