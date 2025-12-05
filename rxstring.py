@@ -284,56 +284,67 @@ def drugdata():
                                          y = value["value"]
                                          activeingredient.append(y)
 
-             ##Convert Lists to Strings
-                 l = ' OR '.join(altvalue)
-                 ing = ' OR '.join(ingredientin)
-                 acting = ' OR '.join(activeingredient)
 
-                 #Combine strings
-                 if l and ing and acting:
-                           combined = l + " OR " + ing + " OR " + acting
+                 #Combine lists and convert to strings
+                 if len(altvalue)!= 0 and leng(ingredientin)!=0 and len(activeingredient)!=0:
+                           combinedwikidatalist = altvalue + ingredientin + activeingredient
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif l and ing:
-                           combined = l + " OR " + ing
+                 elif len(altvalue)!=0 and len(ingredientin)!=0:
+                           combinedwikidatalist = altvalue + ingredientin
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif ing and acting:
-                           combined = ing + " OR " + acting
+                 elif len(ingredientin)!=0 and len(activeingredient)!=0:
+                           combinedwikidatalist = ingredientin + activeingredient
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif l and acting:
-                           combined = l + " OR " + acting 
+                 elif len(altvalue!=0) and len(activeingredient)!=0:
+                           combinedwikidatalist = altvalue + activeingredient
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif l:
-                           combined = l
+                 elif len(altvalue)!=0:
+                           combinedwikidatalist = altvalue
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif ing:
+                 elif len(ingredientin)!=0:
+                           combinedwikidatalist = ingredientin
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = ing
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
-                 elif acting:
-                           combined = acting
+                 elif len(activeingredient)!=0:
+                           combinedwikidatalist = activeingredient
+                           combinedwikidatalist = sorted(combinedwikidatalist)
+                           combined = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -521,10 +532,10 @@ def drugdata():
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
-                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID
+                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
                   completestringarray.append(combined)
                  else:
-                  WikidataHTML = "<br><br>" + WikiMatch
+                  WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
                   PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>"
                   completestringarray.append(PubTerms)
@@ -726,6 +737,17 @@ def drugdata():
                    				document.getElementById('RXNormButton').innerHTML = '+';
                    				}                 
                 			}
+
+             			function seeWikidataresults() { 
+                			if (document.getElementById('WikidataSeparateResults').style.display == 'none') { 
+                    			document.getElementById('WikidataSeparateResults').style.display = 'block';
+                    			document.getElementById('WikidataButton').innerHTML = '-';
+                    		} 
+                			else { 
+                   				document.getElementById('WikidataSeparateResults').style.display = 'none';
+                   				document.getElementById('WikidataButton').innerHTML = '+';
+                   				}                 
+                			}
                            
                 
                             </script>"""
@@ -738,6 +760,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
