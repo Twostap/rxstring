@@ -286,7 +286,7 @@ def drugdata():
 
 
                  #Combine lists and convert to strings
-                 if len(altvalue)!= 0 and leng(ingredientin)!=0 and len(activeingredient)!=0:
+                 if len(altvalue)!= 0 and len(ingredientin)!=0 and len(activeingredient)!=0:
                            combinedwikidatalist = altvalue + ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
@@ -522,17 +522,17 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
+                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
                   completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
-                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
+                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
                   completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
-                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .8em; min-width:17px;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
+                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
                   completestringarray.append(combined)
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
@@ -760,6 +760,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
