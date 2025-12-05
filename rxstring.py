@@ -531,22 +531,22 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
+                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
                   completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
-                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
+                  RxHTML = "<br><br><b>RXCUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
                   completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
-                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
+                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
                   completestringarray.append(combined)
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
-                  PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='PubChemResults'><br>" + PubTerms + "</div>"
+                  PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTerms + "</div>"
                   completestringarray.append(PubTerms)
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
@@ -779,6 +779,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
