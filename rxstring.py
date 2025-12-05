@@ -316,7 +316,7 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
-                 elif len(altvalue!=0) and len(activeingredient)!=0:
+                 elif len(altvalue)!=0 and len(activeingredient)!=0:
                            combinedwikidatalist = altvalue + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
@@ -781,6 +781,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
