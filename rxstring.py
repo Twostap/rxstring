@@ -388,6 +388,7 @@ def drugdata():
                            for cid in PubChemData["InformationList"]["Information"]:
                                          cidInt = cid["CID"]
                                          cidNode = str(cidInt)
+                           print(PubNode)
                            PubNode = sorted(PubNode)
                            PubTerms = ' OR '.join(PubNode)
                            PubTerms = PubTerms.replace("="," ")
@@ -411,6 +412,7 @@ def drugdata():
                            PubTerms = PubTerms.replace('^','')
                            PubTerms = PubTerms.replace(',','')
                            PubTerms = PubTerms.replace('?','')
+                           PubTerms = PubTerms.replace('+-','')
                  
              else:
 
@@ -779,6 +781,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
