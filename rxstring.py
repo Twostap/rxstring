@@ -295,6 +295,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  elif len(altvalue)!=0 and len(ingredientin)!=0:
                            combinedwikidatalist = altvalue + ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -304,6 +305,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  elif len(ingredientin)!=0 and len(activeingredient)!=0:
                            combinedwikidatalist = ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -313,6 +315,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  elif len(altvalue!=0) and len(activeingredient)!=0:
                            combinedwikidatalist = altvalue + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -322,6 +325,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  elif len(altvalue)!=0:
                            combinedwikidatalist = altvalue
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -331,6 +335,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  elif len(ingredientin)!=0:
                            combinedwikidatalist = ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -341,6 +346,8 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
+				 
                  elif len(activeingredient)!=0:
                            combinedwikidatalist = activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -350,6 +357,7 @@ def drugdata():
                            combined = combined.replace(")","")
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
+                           combined = combined.replace("'",'')
                  else:
                            WikiMatch = "No results in Wikidata"
                            combined = 0
@@ -380,6 +388,7 @@ def drugdata():
                            for cid in PubChemData["InformationList"]["Information"]:
                                          cidInt = cid["CID"]
                                          cidNode = str(cidInt)
+                           PubNode = sorted(PubNode)
                            PubTerms = ' OR '.join(PubNode)
                            PubTerms = PubTerms.replace("="," ")
                            PubTerms = PubTerms.replace("[","")
@@ -537,7 +546,7 @@ def drugdata():
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
-                  PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>"
+                  PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px;'>+</button>" + "<div style='display: none;' id='PubChemResults'><br>" + PubTerms + "</div>"
                   completestringarray.append(PubTerms)
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
@@ -748,7 +757,17 @@ def drugdata():
                    				document.getElementById('WikidataButton').innerHTML = '+';
                    				}                 
                 			}
-                           
+
+             			function seePubChemresults() { 
+                			if (document.getElementById('PubChemSeparateResults').style.display == 'none') { 
+                    			document.getElementById('PubChemSeparateResults').style.display = 'block';
+                    			document.getElementById('PubChemButton').innerHTML = '-';
+                    		} 
+                			else { 
+                   				document.getElementById('PubChemSeparateResults').style.display = 'none';
+                   				document.getElementById('PubChemButton').innerHTML = '+';
+                   				}                 
+                			}
                 
                             </script>"""
 		   
@@ -760,6 +779,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
