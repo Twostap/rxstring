@@ -388,9 +388,7 @@ def drugdata():
                            for cid in PubChemData["InformationList"]["Information"]:
                                          cidInt = cid["CID"]
                                          cidNode = str(cidInt)
-                           print(PubNode)
                            PubNode = sorted(PubNode)
-                           print(PubNode)
                            PubTerms = ' OR '.join(PubNode)
                            PubTerms = PubTerms.replace("="," ")
                            PubTerms = PubTerms.replace("[","")
@@ -413,7 +411,6 @@ def drugdata():
                            PubTerms = PubTerms.replace('^','')
                            PubTerms = PubTerms.replace(',','')
                            PubTerms = PubTerms.replace('?','')
-                           PubTerms = PubTerms.replace('+-','')
                  
              else:
 
@@ -554,7 +551,7 @@ def drugdata():
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
                  if DrugBankTerms!=0:
-                  DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>"
+                  DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTerms + "</div>"
                   completestringarray.append(DrugBankTerms)
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
@@ -770,6 +767,17 @@ def drugdata():
                    				document.getElementById('PubChemButton').innerHTML = '+';
                    				}                 
                 			}
+
+             			function seeDrugBankresults() { 
+                			if (document.getElementById('DrugBankSeparateResults').style.display == 'none') { 
+                    			document.getElementById('DrugBankSeparateResults').style.display = 'block';
+                    			document.getElementById('DrugBankButton').innerHTML = '-';
+                    		} 
+                			else { 
+                   				document.getElementById('DrugBankSeparateResults').style.display = 'none';
+                   				document.getElementById('DrugBankButton').innerHTML = '+';
+                   				}                 
+                			}
                 
              </script>"""
 		   
@@ -781,6 +789,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
