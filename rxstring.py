@@ -806,17 +806,25 @@ def drugdata():
                    				}                 
                 			}
 
+             			function downloadcsv() { 
+                			var responsetext = document.getElementById("responsecontent").lastChild.textContent;
+                			var csvtext = responsetext.replace(/ OR /g, '\\n');
+                			csvtext = "data:text/csv;charset=utf-8," + csvtext;
+                			var encodedUri = encodeURI(csvtext);
+                			window.open(encodedUri);
+							}
 				
              </script>"""
 		   
 #Add copyright after running unidecode or it will appear as (c)
-             FormattedPage = FormattedPage + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>" + sectionjavascript
+             FormattedPage = FormattedPage + "</div><div align='right' style='margin-right:10px; margin-top:10px;'><a style='font-size:.8em; text-decoration: none;' onclick='downloadcsv()' href='javascript:void(0);'>Download terms list (.csv)</a>" + "</div><div style='margin-top: auto;'><p style='font-size:.6em'><br><br>© Copyright 2025 Tyler Ostapyk</p></div></body></html>" + sectionjavascript
              
              return FormattedPage
     return render_template("form.html")
 
 if __name__=='__main__':
    app.run()
+
 
 
 
