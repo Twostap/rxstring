@@ -475,6 +475,7 @@ def drugdata():
                            LOCtermcheck = 0
 
                  if LOCtermcheck==1:
+                           LOCTerms = sorted(LOCTerms)
                            LOCTerms = " OR ".join(LOCTerms)
                            LOCTerms = LOCTerms.replace(" (Trademark)","")
                  
@@ -556,7 +557,7 @@ def drugdata():
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
-                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>"
+                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCkButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
                   completestringarray.append(LOCTerms)
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
@@ -778,6 +779,17 @@ def drugdata():
                    				document.getElementById('DrugBankButton').innerHTML = '+';
                    				}                 
                 			}
+
+             			function seeLOCresults() { 
+                			if (document.getElementById('LOCSeparateResults').style.display == 'none') { 
+                    			document.getElementById('LOCSeparateResults').style.display = 'block';
+                    			document.getElementById('LOCButton').innerHTML = '-';
+                    		} 
+                			else { 
+                   				document.getElementById('LOCSeparateResults').style.display = 'none';
+                   				document.getElementById('LOCButton').innerHTML = '+';
+                   				}                 
+                			}
                 
              </script>"""
 		   
@@ -789,6 +801,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
