@@ -551,7 +551,7 @@ def drugdata():
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
-                  PubHTML = "<br><br><b>CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTerms + "</div>"
+                  PubHTML = "<br><br><b>PubChem CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTerms + "</div>"
                   completestringarray.append(PubTerms)
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
@@ -817,6 +817,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
