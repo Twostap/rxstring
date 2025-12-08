@@ -296,6 +296,8 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
+                           combined = combined.replace("{",'')
+                           combined = combined.replace("}",'')
                  elif len(altvalue)!=0 and len(ingredientin)!=0:
                            combinedwikidatalist = altvalue + ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -306,6 +308,8 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
+                           combined = combined.replace("{",'')
+                           combined = combined.replace("}",'')
                  elif len(ingredientin)!=0 and len(activeingredient)!=0:
                            combinedwikidatalist = ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -326,6 +330,8 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
+                           combined = combined.replace("{",'')
+                           combined = combined.replace("}",'')
                  elif len(altvalue)!=0:
                            combinedwikidatalist = altvalue
                            combinedwikidatalist = sorted(combinedwikidatalist)
@@ -347,6 +353,8 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
+                           combined = combined.replace("{",'')
+                           combined = combined.replace("}",'')
 				 
                  elif len(activeingredient)!=0:
                            combinedwikidatalist = activeingredient
@@ -358,6 +366,8 @@ def drugdata():
                            combined = combined.replace("@","")
                            combined = combined.replace('"','')
                            combined = combined.replace("'",'')
+                           combined = combined.replace("{",'')
+                           combined = combined.replace("}",'')
                  else:
                            WikiMatch = "No results in Wikidata"
                            combined = 0
@@ -822,6 +832,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
