@@ -515,6 +515,7 @@ def drugdata():
                                           EmtreeTerms = EmtreeTerms.replace(","," ")
                                           EmtreeTerms = EmtreeTerms.replace("'","")
                                           EmtreeTerms = (EmtreeTerms.split("\n")[:-3])
+                                          EmtreeTerms = [x for x in EmtreeTerms if x]
                                           print(EmtreeTerms)
                                           EmtreeTerms = [x.strip() for x in EmtreeTerms]
                                           EmtreeTerms = sorted(EmtreeTerms)
@@ -816,6 +817,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
