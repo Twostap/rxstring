@@ -515,6 +515,7 @@ def drugdata():
                                           EmtreeTerms = EmtreeTerms.replace("'","")
                                           EmtreeTerms = ("\n".join(EmtreeTerms.split("\n")[:-3]))
                                           EmtreeTerms = EmtreeTerms.strip()
+                                          EmtreeTerms = sorted(EmtreeTerms)
                                           EmtreeTerms = " OR ".join((EmtreeTerms).split("\n"))
 
              else:
@@ -557,15 +558,15 @@ def drugdata():
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
-                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCkButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
+                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
                   completestringarray.append(LOCTerms)
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
                  if EmtreeTerms!=0:
-                  EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename
+                  EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTerms + "</div>"
                   completestringarray.append(EmtreeTerms)
                  else:
-                  EmtreeHTML = "<br><br>" + EmtreeMatch
+                  EmtreeHTML = "<br><br>" + EmtreeMatch 
                  completestringjoined = " OR ".join(completestringarray)
 				 
 #Unidecode is a module that converts diacritics/greek to corresponding latin alphabet             
@@ -790,7 +791,19 @@ def drugdata():
                    				document.getElementById('LOCButton').innerHTML = '+';
                    				}                 
                 			}
-                
+
+             			function seeEmtreeresults() { 
+                			if (document.getElementById('EmtreeSeparateResults').style.display == 'none') { 
+                    			document.getElementById('EmtreeSeparateResults').style.display = 'block';
+                    			document.getElementById('EmtreeButton').innerHTML = '-';
+                    		} 
+                			else { 
+                   				document.getElementById('EmtreeSeparateResults').style.display = 'none';
+                   				document.getElementById('EmtreeButton').innerHTML = '+';
+                   				}                 
+                			}
+
+				
              </script>"""
 		   
 #Add copyright after running unidecode or it will appear as (c)
@@ -801,6 +814,7 @@ def drugdata():
 
 if __name__=='__main__':
    app.run()
+
 
 
 
