@@ -417,6 +417,8 @@ def drugdata():
                                          cidNode = str(cidInt)
                            PubNode = sorted(PubNode)
                            PubTerms = ' OR '.join(PubNode)
+                           PubTermsPhrase = '" OR "'.join(PubNode)
+                           PubTermsPhrase = '"' + PubTermsPhrase + '"'
                            PubTerms = PubTerms.replace("="," ")
                            PubTerms = PubTerms.replace("[","")
                            PubTerms = PubTerms.replace("]","")
@@ -588,8 +590,12 @@ def drugdata():
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
-                  PubHTML = "<br><br><b>PubChem CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTerms + "</div>"
-                  completestringarray.append(PubTerms)
+                  if PhraseSearch=="on":
+                     PubHTML = "<br><br><b>PubChem CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTermsPhrase + "</div>"
+                     completestringarray.append(PubTerms)
+                  else:
+                     PubHTML = "<br><br><b>PubChem CID:</b> "  + "<a target='blank' href='https://pubchem.ncbi.nlm.nih.gov/compound/" + cidNode + "'>" + cidNode + "</a>" + " <button id='PubChemButton' onclick='seePubChemresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='PubChemSeparateResults'><br>" + PubTerms + "</div>"
+                     completestringarray.append(PubTerms)
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
                  if DrugBankTerms!=0:
