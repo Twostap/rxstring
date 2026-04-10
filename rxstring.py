@@ -552,6 +552,8 @@ def drugdata():
                                           EmtreeTerms = [x for x in EmtreeTerms if x]
                                           EmtreeTerms = [x.strip() for x in EmtreeTerms]
                                           EmtreeTerms = sorted(EmtreeTerms)
+                                          EmtreeTermsPhrase = '" OR "'.join(EmtreeTerms)
+                                          EmtreeTermsPhrase = '"' + EmtreeTermsPhrase + '"'
                                           EmtreeTerms = " OR ".join(EmtreeTerms)
 
              else:
@@ -623,8 +625,12 @@ def drugdata():
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
                  if EmtreeTerms!=0:
-                  EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTerms + "</div>"
-                  completestringarray.append(EmtreeTerms)
+                  if PhraseSearch=="on":
+                     EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTermsPhrase + "</div>"
+                     completestringarray.append(EmtreeTerms)
+                  else:
+                     EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTerms + "</div>"
+                     completestringarray.append(EmtreeTerms)
                  else:
                   EmtreeHTML = "<br><br>" + EmtreeMatch 
                  completestringjoined = " OR ".join(completestringarray)
