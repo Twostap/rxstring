@@ -457,6 +457,8 @@ def drugdata():
                                 if lowerrow == drug:
                                           synonym = row[5]
                                           DrugBankTerms = synonym.replace(" | "," OR ")
+                                          DrugBankTermsPhrase = synonym.replace(" | ",'" OR "')
+                                          DrugBankTermsPhrase = '"' + DrugBankTermsPhrase + '"'
                                           DrugBankTerms = DrugBankTerms.replace("[","")
                                           DrugBankTerms = DrugBankTerms.replace("]","")
                                           DrugBankTerms = DrugBankTerms.replace(", ","-")
