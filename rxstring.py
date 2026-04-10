@@ -103,6 +103,7 @@ def drugdata():
                                           MESHterms = sorted(MESHterms)       
                                           MESHtermstring = ' OR '.join(MESHterms)
                                           MESHtermstringphrase = '" OR "'.join(MESHterms)
+                                          MESHtermstringphrase = '"' + MESHtermstringphrase + '"'
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
                                           MESHtermstring = MESHtermstring.replace(".","")
