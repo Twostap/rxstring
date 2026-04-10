@@ -107,17 +107,17 @@ def drugdata():
                                           elif TruncationSecond=="on":
                                                       MESHTwoWordList = []
                                                       for x in MESHterms:
-														MESHTwoWordCheck = len(x.split())     
-														if MESHTwoWordCheck >=2:           
-															MESHTwoWordTerm = x.split()[:2]
-															MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
-                                          					MESHTwoWordList.append(MESHTwoWordTerm)
-														else:
-                                          					MESHTwoWordTerm = x.split()[:1] 
-                                          					MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
-                                          					MESHTwoWordList.append(MESHTwoWordTerm)                                         
-                                          					MESHTerms = list(dict.fromkeys(MESHTwoWordList))
-                                          MESHterms = [MESHterms for MESHterms in MESHterms + "*"]
+															MESHTwoWordCheck = len(x.split())     
+															if MESHTwoWordCheck >=2:           
+																MESHTwoWordTerm = x.split()[:2]
+																MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
+                                          						MESHTwoWordList.append(MESHTwoWordTerm)
+															else:
+                                          						MESHTwoWordTerm = x.split()[:1] 
+                                          						MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
+                                          						MESHTwoWordList.append(MESHTwoWordTerm)                                         
+                                          						MESHTerms = list(dict.fromkeys(MESHTwoWordList))
+                                                      MESHterms = [MESHterms for MESHterms in MESHterms + "*"]
                                           elif TruncationFirst=="on":
                                                       MESHOneWordList = [x.split()[0] for x in MESHterms]
                                                       MESHterms = list(dict.fromkeys(MESHOneWordList))
