@@ -193,8 +193,8 @@ def drugdata():
                                          rxalt.append(synnode)
                                rxalt = sorted(rxalt)
                                rxnormstring = ' OR '.join(rxalt)
-							   rxnormstringphrase = '" OR "'.join(rxalt)
-							   rxnormstringphrase = '"' + rxnormstringphrase + '"'
+                               rxnormstringphrase = '" OR "'.join(rxalt)
+                               rxnormstringphrase = '"' + rxnormstringphrase + '"'
                                rxnormstring = rxnormstring.replace(".","")
                                rxnormstring = rxnormstring.replace(",","")
 
