@@ -467,6 +467,8 @@ def drugdata():
                                 elif drug in lowersyn:
                                           synonym = row[5]
                                           DrugBankTerms = synonym.replace(" | "," OR ")
+                                          DrugBankTermsPhrase = synonym.replace(" | ",'" OR "')
+                                          DrugBankTermsPhrase = '"' + DrugBankTermsPhrase + '"'
                                           DrugBankTerms = DrugBankTerms.replace("[","")
                                           DrugBankTerms = DrugBankTerms.replace("]","")
                                           DrugBankTerms = DrugBankTerms.replace(",","")
@@ -599,8 +601,12 @@ def drugdata():
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
                  if DrugBankTerms!=0:
-                  DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTerms + "</div>"
-                  completestringarray.append(DrugBankTerms)
+                  if PhraseSearch=="on":
+                     DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTermsPhrase + "</div>"
+                     completestringarray.append(DrugBankTerms)
+                  else:
+                     DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTerms + "</div>"
+                     completestringarray.append(DrugBankTerms)
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
