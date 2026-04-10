@@ -119,6 +119,7 @@ def drugdata():
                                MESHtermresponse = requests.get(url = MESHURL3, params = MESHPARAMS3)
                                MESHterm = MESHtermresponse.json()
                                MESHtermreplaced = "".join(MESHterm)
+                               MESHtermreplacedphrase = '" OR "'.join(MESHterm)
 
 #If MeSH wasn't selected as a source return MESHterm check 0 and "did not search MeSH" text
              else:
@@ -544,8 +545,12 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
-                  completestringarray.append(MESHtermstring)
+                  if PhraseSearch=="on":                
+                               MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplacedphrase + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
+                               completestringarray.append(MESHtermstring)
+				  else:
+                               MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
+                               completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
