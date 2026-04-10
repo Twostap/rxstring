@@ -617,7 +617,7 @@ def drugdata():
                   if PhraseSearch=="on":
                      LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTermsPhrase + "</div>"
                      completestringarray.append(LOCTerms)
-				  else:
+                  else:
                      LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
                      completestringarray.append(LOCTerms)
                  else:
