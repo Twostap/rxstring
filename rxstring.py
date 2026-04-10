@@ -510,6 +510,8 @@ def drugdata():
                  if LOCtermcheck==1:
                            LOCTerms = sorted(LOCTerms)
                            LOCTerms = " OR ".join(LOCTerms)
+                           LOCTermsPhrase = '" OR "'.join(LOCTerms)
+                           LOCTermsPhrase = '"' + LOCTermsPhrase + '"'
                            LOCTerms = LOCTerms.replace(" (Trademark)","")
                  
              else:
@@ -612,8 +614,12 @@ def drugdata():
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
-                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
-                  completestringarray.append(LOCTerms)
+                  if PhraseSearch=="on":
+                     LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTermsPhrase + "</div>"
+                     completestringarray.append(LOCTerms)
+				  else:
+                     LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
+                     completestringarray.append(LOCTerms)
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
                  if EmtreeTerms!=0:
