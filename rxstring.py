@@ -100,7 +100,28 @@ def drugdata():
                                           for meshentry in MESHentrydata["terms"]:
                                                       MESHentrynode = meshentry["label"]
                                                       MESHterms.append(MESHentrynode)
-                                          MESHterms = sorted(MESHterms)       
+                                          MESHterms = sorted(MESHterms)
+
+                                          if TruncationSymbol=="on":
+											MESHterms = [MESHterms for MESHterms in MESHterms + "*"]
+                                          elif TruncationSecond=="on":
+											MESHTwoWordList = []
+											for x in MESHterms:
+												MESHTwoWordCheck = len(x.split())     
+												if MESHTwoWordCheck >=2:           
+													MESHTwoWordTerm = x.split()[:2]
+													MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
+                                          			MESHTwoWordList.append(MESHTwoWordTerm)
+												else:
+                                          			MESHTwoWordTerm = x.split()[:1] 
+                                          			MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
+                                          			MESHTwoWordList.append(MESHTwoWordTerm)                                         
+                                          			MESHTerms = list(dict.fromkeys(MESHTwoWordList))
+											MESHterms = [MESHterms for MESHterms in MESHterms + "*"]
+                                          elif TruncationFirst=="on":
+											MESHOneWordList = [x.split()[0] for x in MESHterms]
+											MESHterms = list(dict.fromkeys(MESHOneWordList))
+											MESHterms = [MESHterms for MESHterms in MESHterms + "*"]
                                           MESHtermstring = ' OR '.join(MESHterms)
                                           MESHtermstringphrase = '" OR "'.join(MESHterms)
                                           MESHtermstringphrase = '"' + MESHtermstringphrase + '"'
