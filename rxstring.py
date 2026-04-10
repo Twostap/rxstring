@@ -509,9 +509,9 @@ def drugdata():
 
                  if LOCtermcheck==1:
                            LOCTerms = sorted(LOCTerms)
-                           LOCTerms = " OR ".join(LOCTerms)
                            LOCTermsPhrase = '" OR "'.join(LOCTerms)
                            LOCTermsPhrase = '"' + LOCTermsPhrase + '"'
+                           LOCTerms = " OR ".join(LOCTerms)
                            LOCTerms = LOCTerms.replace(" (Trademark)","")
                  
              else:
