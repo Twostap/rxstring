@@ -193,6 +193,8 @@ def drugdata():
                                          rxalt.append(synnode)
                                rxalt = sorted(rxalt)
                                rxnormstring = ' OR '.join(rxalt)
+							   rxnormstringphrase = '" OR "'.join(rxalt)
+							   rxnormstringphrase = '"' + rxnormstringphrase + '"'
                                rxnormstring = rxnormstring.replace(".","")
                                rxnormstring = rxnormstring.replace(",","")
 
@@ -555,8 +557,12 @@ def drugdata():
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
-                  RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
-                  completestringarray.append(rxnormstring)
+                  if PhraseSearch=="on":    
+                     RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstringphrase + "</div>"
+                     completestringarray.append(rxnormstring)
+                  else:
+                     RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
+                     completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
