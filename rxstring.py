@@ -294,6 +294,8 @@ def drugdata():
                            combinedwikidatalist = altvalue + ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -306,6 +308,8 @@ def drugdata():
                            combinedwikidatalist = altvalue + ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -318,6 +322,8 @@ def drugdata():
                            combinedwikidatalist = ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -328,6 +334,8 @@ def drugdata():
                            combinedwikidatalist = altvalue + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -340,6 +348,8 @@ def drugdata():
                            combinedwikidatalist = altvalue
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -350,7 +360,8 @@ def drugdata():
                            combinedwikidatalist = ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combined = ing
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -364,6 +375,8 @@ def drugdata():
                            combinedwikidatalist = activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
+                           combinedphrase = '" OR "'.join(combinedwikidatalist)
+                           combinedphrase = '"' + combinedphrase + '"'
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -566,8 +579,12 @@ def drugdata():
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
-                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
-                  completestringarray.append(combined)
+                  if PhraseSearch=="on":
+                     WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combinedphrase + "</div>"
+                     completestringarray.append(combined)
+                  else:
+                     WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
+                     completestringarray.append(combined)
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
