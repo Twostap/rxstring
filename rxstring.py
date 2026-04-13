@@ -102,11 +102,9 @@ def drugdata():
                                                       MESHterms.append(MESHentrynode)
                                           MESHterms = sorted(MESHterms)
 
-
-
                                           if TruncationSymbol=="on":
                                                       MESHtermssource = [trunc + "*" for trunc in MESHterms]
-										  else:
+                                          else:
                                                       MESHtermssource = MESHterms
 
 					   
@@ -115,7 +113,7 @@ def drugdata():
                                           if PhraseSearch=="on":
                                                       MESHtermssourcestring = '" OR "'.join(MESHtermssource)
                                                       MESHtermssourcestring = '"' + MESHtermssourcestring + '"'
-										  else:
+                                          else:
                                                       MESHtermssourcestring = ' OR '.join(MESHtermssource)
                                           MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
