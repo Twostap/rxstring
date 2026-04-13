@@ -221,34 +221,35 @@ def drugdata():
                                          rxalt.append(synnode)
                                rxalt = sorted(rxalt)
                                							   
-                               if TruncationSymbol=="on":
-                                         rxaltsource = [trunc + "*" for trunc in rxalt]
-                               elif TruncationSecond=="on":
-                                         rxaltTwoWordList = []
-                                         for x in rxalt:
-                                                    rxaltTwoWordCheck = len(x.split())     
-                                                    if rxaltTwoWordCheck >=2:           
-                                                      		rxaltTwoWordTerm = x.split()[:2]
-                                                      		rxaltTwoWordTerm = " ".join(rxaltTwoWordTerm)
-                                                      		rxaltTwoWordList.append(rxaltTwoWordTerm)
-                                                    else:
-                                                      		rxaltTwoWordTerm = x.split()[:1] 
-                                                      		rxaltTwoWordTerm = "".join(rxaltTwoWordTerm)                                          
-                                                      		rxaltTwoWordList.append(rxaltTwoWordTerm)    
-                                                    rxaltsource = [trunc + "*" for trunc in rxaltTwoWordList]
-                               elif TruncationFirst=="on":
-                                         rxaltOneWordList = [x.split()[0] for x in rxalt]
-                                         rxaltsource = [trunc + "*" for trunc in rxaltOneWordList]
-                               else:
-                                         rxaltsource = rxalt
+                               #if TruncationSymbol=="on":
+                                         #rxaltsource = [trunc + "*" for trunc in rxalt]
+                               #elif TruncationSecond=="on":
+                                         #rxaltTwoWordList = []
+                                         #for x in rxalt:
+                                                    #rxaltTwoWordCheck = len(x.split())     
+                                                    #if rxaltTwoWordCheck >=2:           
+                                                      		#rxaltTwoWordTerm = x.split()[:2]
+                                                      		#rxaltTwoWordTerm = " ".join(rxaltTwoWordTerm)
+                                                      		#rxaltTwoWordList.append(rxaltTwoWordTerm)
+                                                    #else:
+                                                      		#rxaltTwoWordTerm = x.split()[:1] 
+                                                      		#rxaltTwoWordTerm = "".join(rxaltTwoWordTerm)                                          
+                                                      		#rxaltTwoWordList.append(rxaltTwoWordTerm)    
+                                                    #rxaltsource = [trunc + "*" for trunc in rxaltTwoWordList]
+                               #elif TruncationFirst=="on":
+                                         #rxaltOneWordList = [x.split()[0] for x in rxalt]
+                                         #rxaltsource = [trunc + "*" for trunc in rxaltOneWordList]
+                               #else:
+                                         #rxaltsource = rxalt
                                          								  
-                               if PhraseSearch=="on":
-                                         rxaltsourcestring = '" OR "'.join(rxaltsource)
-                                         rxaltsourcestring = '"' + rxaltsourcestring + '"'							  
-                               else:
-                                         rxaltsourcestring = ' OR '.join(rxaltsource)
+                               #if PhraseSearch=="on":
+                                         #rxaltsourcestring = '" OR "'.join(rxaltsource)
+                                         #rxaltsourcestring = '"' + rxaltsourcestring + '"'							  
+                               #else:
+                                         #rxaltsourcestring = ' OR '.join(rxaltsource)
 
                                rxnormstring = ' OR '.join(rxalt)
+                               rxnormsourcestring = ' OR '.join(rxalt)
                                rxnormstring = rxnormstring.replace(".","")
                                rxnormstring = rxnormstring.replace(",","")
 
