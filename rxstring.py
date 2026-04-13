@@ -101,6 +101,13 @@ def drugdata():
                                                       MESHentrynode = meshentry["label"]
                                                       MESHterms.append(MESHentrynode)
                                           MESHterms = sorted(MESHterms)
+
+
+
+                                          if TruncationSymbol=="on":
+                                                    MESHterms = [trunc for trunc in MESHterms + "*"]
+                                                    print(MESHterms)
+													   
                                           MESHtermstring = ' OR '.join(MESHterms)
                                           MESHtermstringphrase = '" OR "'.join(MESHterms)
                                           MESHtermstringphrase = '"' + MESHtermstringphrase + '"'
