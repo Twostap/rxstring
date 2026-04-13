@@ -105,12 +105,19 @@ def drugdata():
 
 
                                           if TruncationSymbol=="on":
-                                                      MESHterms = [trunc + "*" for trunc in MESHterms]
-                                                      print(MESHterms)
-													   
-                                          MESHtermstring = ' OR '.join(MESHterms)
-                                          MESHtermstringphrase = '" OR "'.join(MESHterms)
-                                          MESHtermstringphrase = '"' + MESHtermstringphrase + '"'
+                                                      MESHtermssource = [trunc + "*" for trunc in MESHterms]
+										  else:
+                                                      MESHtermssource = MESHterms
+
+					   
+
+                                          
+                                          if PhraseSearch=="on":
+                                                      MESHtermssourcestring = '" OR "'.join(MESHtermssource)
+                                                      MESHtermssourcestring = '"' + MESHtermssourcestring + '"'
+										  else:
+                                                      MESHtermssourcestring = ' OR '.join(MESHtermssource)
+                                          MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
                                           MESHtermstring = MESHtermstring.replace(".","")
@@ -578,12 +585,8 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  if PhraseSearch=="on":                
-                     MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstringphrase + "</div>"
-                     completestringarray.append(MESHtermstring)
-                  else:
-                     MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermstring + "</div>"
-                     completestringarray.append(MESHtermstring)
+                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermssourcetring + "</div>"
+                  completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
