@@ -608,11 +608,11 @@ def drugdata():
                                           break
                             else:
                                           EmtreeTerms = etrees.text
-                                          EmtreeTerms = EmtreeTerms.replace(u'\xa0', u'')
                                           EmtreeTermsSource = (EmtreeTerms.split("\n")[:-3])
                                           EmtreeTermsSource = [x for x in EmtreeTermsSource if x]
                                           EmtreeTermsSource = [x.strip() for x in EmtreeTermsSource]
                                           EmtreeTermsSource = sorted(EmtreeTermsSource)
+                                          EmtreeTerms = EmtreeTerms.replace(u'\xa0', u'')
                                           EtreeQualifier = "(" + drug + ")" 
                                           EmtreeTerms = EmtreeTerms.replace(EtreeQualifier,"")
                                           EmtreeTerms = EmtreeTerms.replace("[Drug Trade Name]","")
