@@ -101,7 +101,7 @@ def drugdata():
                                                       MESHentrynode = meshentry["label"]
                                                       MESHterms.append(MESHentrynode)
                                           MESHterms = sorted(MESHterms)
-
+#Section for truncating and phrase searching single source. Noted out for now.
                                           #if TruncationSymbol=="on":
                                                       #MESHtermssource = [trunc + "*" for trunc in MESHterms]
                                           #elif TruncationSecond=="on":
@@ -220,7 +220,7 @@ def drugdata():
                                if synnode:
                                          rxalt.append(synnode)
                                rxalt = sorted(rxalt)
-                               							   
+#Section for truncating and phrase searching single source. Noted out for now.                  							   
                                #if TruncationSymbol=="on":
                                          #rxaltsource = [trunc + "*" for trunc in rxalt]
                                #elif TruncationSecond=="on":
@@ -464,7 +464,7 @@ def drugdata():
                                          cidInt = cid["CID"]
                                          cidNode = str(cidInt)
                            PubNode = sorted(PubNode)
-
+#Section for truncating and phrase searching single source. Noted out for now.
                            #if TruncationSymbol=="on":
                                          #Pubsource = [trunc + "*" for trunc in PubNode]
                            #elif TruncationSecond=="on":
