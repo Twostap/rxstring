@@ -104,23 +104,36 @@ def drugdata():
 
                                           if TruncationSymbol=="on":
                                                       MESHtermssource = [trunc + "*" for trunc in MESHterms]
+                                          elif TruncationSecond=="on":
+                                                      MESHTwoWordList = []
+                                                      for x in MESHterms:
+                                                      	MESHTwoWordCheck = len(x.split())     
+                                                      	if MESHTwoWordCheck >=2:           
+                                                      		MESHTwoWordTerm = x.split()[:2]
+                                                      		MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
+                                                      		MESHTwoWordList.append(MESHTwoWordTerm)
+                                                      	else:
+                                                      		MESHTwoWordTerm = x.split()[:1] 
+                                                      		MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
+                                                      		MESHTwoWordList.append(MESHTwoWordTerm)    
+                                                      MESHtermssource = list(dict.fromkeys(MESHTwoWordList))
+                                                      MESHtermssource = [trunc + "*" for trunc in MESHtermssource]
                                           else:
                                                       MESHtermssource = MESHterms
-
-					   
-
-                                          
+                                         								  
                                           if PhraseSearch=="on":
                                                       MESHtermssourcestring = '" OR "'.join(MESHtermssource)
-                                                      MESHtermssourcestring = '"' + MESHtermssourcestring + '"'
-                                          else:
+                                                      MESHtermssourcestring = '"' + MESHtermssourcestring + '"'							  
+										  
+										  else:
                                                       MESHtermssourcestring = ' OR '.join(MESHtermssource)
                                           MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
                                           MESHtermstring = MESHtermstring.replace(".","")
                                           MESHtermstring = MESHtermstring.replace(",","")
-                                          MESHtermcheck = 1              
+                                          MESHtermcheck = 1
+					   
 #Check if MESHterms array is still empty, and if it is pass 0 and "no results in MESH"
                    if MESHterms==[]:
                                MESHtermcheck = 0
