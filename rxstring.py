@@ -125,7 +125,7 @@ def drugdata():
                                                       MESHtermssourcestring = '" OR "'.join(MESHtermssource)
                                                       MESHtermssourcestring = '"' + MESHtermssourcestring + '"'							  
 										  
-										  else:
+                                          else:
                                                       MESHtermssourcestring = ' OR '.join(MESHtermssource)
                                           MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
