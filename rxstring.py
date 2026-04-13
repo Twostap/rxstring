@@ -105,8 +105,8 @@ def drugdata():
 
 
                                           if TruncationSymbol=="on":
-                                                    MESHterms = [trunc for trunc in MESHterms + "*"]
-                                                    print(MESHterms)
+                                                      MESHterms = [trunc + "*" for trunc in MESHterms]
+                                                      print(MESHterms)
 													   
                                           MESHtermstring = ' OR '.join(MESHterms)
                                           MESHtermstringphrase = '" OR "'.join(MESHterms)
