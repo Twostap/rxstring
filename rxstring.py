@@ -349,8 +349,7 @@ def drugdata():
                            combinedwikidatalist = altvalue + ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -363,8 +362,7 @@ def drugdata():
                            combinedwikidatalist = altvalue + ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -377,8 +375,7 @@ def drugdata():
                            combinedwikidatalist = ingredientin + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -389,8 +386,7 @@ def drugdata():
                            combinedwikidatalist = altvalue + activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -403,8 +399,7 @@ def drugdata():
                            combinedwikidatalist = altvalue
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -415,8 +410,7 @@ def drugdata():
                            combinedwikidatalist = ingredientin
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -430,8 +424,7 @@ def drugdata():
                            combinedwikidatalist = activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-                           combinedphrase = '" OR "'.join(combinedwikidatalist)
-                           combinedphrase = '"' + combinedphrase + '"'
+					       combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
@@ -472,36 +465,37 @@ def drugdata():
                                          cidNode = str(cidInt)
                            PubNode = sorted(PubNode)
 
-                           if TruncationSymbol=="on":
-                                         Pubsource = [trunc + "*" for trunc in PubNode]
-                           elif TruncationSecond=="on":
-                                         PubTwoWordList = []
-                                         for x in PubNode:
-                                                    PubTwoWordCheck = len(x.split())     
-                                                    if PubTwoWordCheck >=2:           
-                                                      		PubTwoWordTerm = x.split()[:2]
-                                                      		PubTwoWordTerm = " ".join(PubTwoWordTerm)
-                                                      		PubTwoWordList.append(PubTwoWordTerm)
-                                                    else:
-                                                      		PubTwoWordTerm = x.split()[:1] 
-                                                      		PubTwoWordTerm = "".join(PubTwoWordTerm)                                          
-                                                      		PubTwoWordList.append(PubTwoWordTerm)    
-                                                    Pubsource = [trunc + "*" for trunc in PubTwoWordList]
-                           elif TruncationFirst=="on":
-                                         PubOneWordList = [x.split()[0] for x in PubNode]
-                                         Pubsource = [trunc + "*" for trunc in PubOneWordList]
-                           else:
-                                         Pubsource = PubNode
+                           #if TruncationSymbol=="on":
+                                         #Pubsource = [trunc + "*" for trunc in PubNode]
+                           #elif TruncationSecond=="on":
+                                         #PubTwoWordList = []
+                                         #for x in PubNode:
+                                                    #PubTwoWordCheck = len(x.split())     
+                                                    #if PubTwoWordCheck >=2:           
+                                                      		#PubTwoWordTerm = x.split()[:2]
+                                                      		#PubTwoWordTerm = " ".join(PubTwoWordTerm)
+                                                      		#PubTwoWordList.append(PubTwoWordTerm)
+                                                    #else:
+                                                      		#PubTwoWordTerm = x.split()[:1] 
+                                                      		#PubTwoWordTerm = "".join(PubTwoWordTerm)                                          
+                                                      		#PubTwoWordList.append(PubTwoWordTerm)    
+                                                    #Pubsource = [trunc + "*" for trunc in PubTwoWordList]
+                           #elif TruncationFirst=="on":
+                                         #PubOneWordList = [x.split()[0] for x in PubNode]
+                                         #Pubsource = [trunc + "*" for trunc in PubOneWordList]
+                           #else:
+                                         #Pubsource = PubNode
                                          								  
-                           if PhraseSearch=="on":
-                                         Pubsourcestring = '" OR "'.join(Pubsource)
-                                         Pubsourcestring = '"' + Pubsourcestring + '"'							  
-                           else:
-                                         Pubsourcestring = ' OR '.join(Pubsource)
+                           #if PhraseSearch=="on":
+                                         #Pubsourcestring = '" OR "'.join(Pubsource)
+                                         #Pubsourcestring = '"' + Pubsourcestring + '"'							  
+                           #else:
+                                         #Pubsourcestring = ' OR '.join(Pubsource)
 
 
 					 
                            PubTerms = ' OR '.join(PubNode)
+                           Pubsourcestring = ' OR '.join(PubNode)
                            PubTerms = PubTerms.replace("="," ")
                            PubTerms = PubTerms.replace("[","")
                            PubTerms = PubTerms.replace("]","")
@@ -540,8 +534,7 @@ def drugdata():
                                 if lowerrow == drug:
                                           synonym = row[5]
                                           DrugBankTerms = synonym.replace(" | "," OR ")
-                                          DrugBankTermsPhrase = synonym.replace(" | ",'" OR "')
-                                          DrugBankTermsPhrase = '"' + DrugBankTermsPhrase + '"'
+                                          DrugBankTermsSourceString = DrugBankTerms
                                           DrugBankTerms = DrugBankTerms.replace("[","")
                                           DrugBankTerms = DrugBankTerms.replace("]","")
                                           DrugBankTerms = DrugBankTerms.replace(", ","-")
@@ -552,8 +545,7 @@ def drugdata():
                                 elif drug in lowersyn:
                                           synonym = row[5]
                                           DrugBankTerms = synonym.replace(" | "," OR ")
-                                          DrugBankTermsPhrase = synonym.replace(" | ",'" OR "')
-                                          DrugBankTermsPhrase = '"' + DrugBankTermsPhrase + '"'
+                                          DrugBankTermsSourceString = DrugBankTerms
                                           DrugBankTerms = DrugBankTerms.replace("[","")
                                           DrugBankTerms = DrugBankTerms.replace("]","")
                                           DrugBankTerms = DrugBankTerms.replace(",","")
@@ -592,9 +584,8 @@ def drugdata():
 
                  if LOCtermcheck==1:
                            LOCTerms = sorted(LOCTerms)
-                           LOCTermsPhrase = '" OR "'.join(LOCTerms)
-                           LOCTermsPhrase = '"' + LOCTermsPhrase + '"'
                            LOCTerms = " OR ".join(LOCTerms)
+                           LOCTermsSourceString = LOCTerms
                            LOCTerms = LOCTerms.replace(" (Trademark)","")
                  
              else:
@@ -635,9 +626,8 @@ def drugdata():
                                           EmtreeTerms = [x for x in EmtreeTerms if x]
                                           EmtreeTerms = [x.strip() for x in EmtreeTerms]
                                           EmtreeTerms = sorted(EmtreeTerms)
-                                          EmtreeTermsPhrase = '" OR "'.join(EmtreeTerms)
-                                          EmtreeTermsPhrase = '"' + EmtreeTermsPhrase + '"'
                                           EmtreeTerms = " OR ".join(EmtreeTerms)
+                                          EmtreeTermsSourceString = EmtreeTerms
 
              else:
                EmtreeTerms = 0
@@ -664,12 +654,8 @@ def drugdata():
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
-                  if PhraseSearch=="on":
-                     WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combinedphrase + "</div>"
-                     completestringarray.append(combined)
-                  else:
-                     WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combined + "</div>"
-                     completestringarray.append(combined)
+                  WikidataHTML = "<br><br><b>Wikidata QID:</b> " + QID + " <button id='WikidataButton' onclick='seeWikidataresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='WikidataSeparateResults'><br>" + combinedsourcestring + "</div>"
+                  completestringarray.append(combined)
                  else:
                   WikidataHTML = "<br><br>" + WikiMatch 
                  if PubTerms!=0:
@@ -678,30 +664,18 @@ def drugdata():
                  else:
                     PubHTML = "<br><br>" + PubMatch                 
                  if DrugBankTerms!=0:
-                  if PhraseSearch=="on":
-                     DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTermsPhrase + "</div>"
-                     completestringarray.append(DrugBankTerms)
-                  else:
-                     DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTerms + "</div>"
-                     completestringarray.append(DrugBankTerms)
+                  DrugBankHTML = "<br><br><b>DrugBank ID:  </b>" + "<a target='blank' href='https://go.drugbank.com/drugs/" + DrugBankid  + "'>" + DrugBankid + "</a>" + " <button id='DrugBankButton' onclick='seeDrugBankresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='DrugBankSeparateResults'><br>" + DrugBankTermsSourceString + "</div>"
+                  completestringarray.append(DrugBankTerms)
                  else:
                   DrugBankHTML = "<br><br>" + DrugBankMatch
                  if LOCtermcheck!=0:
-                  if PhraseSearch=="on":
-                     LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTermsPhrase + "</div>"
-                     completestringarray.append(LOCTerms)
-                  else:
-                     LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTerms + "</div>"
-                     completestringarray.append(LOCTerms)
+                  LOCHTML = "<br><br><b>LCSH ID: </b>" + "<a target='blank' href='https://id.loc.gov/authorities/subjects/" + LOCid + "'>" + LOCid + "</a>" + " <button id='LOCButton' onclick='seeLOCresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='LOCSeparateResults'><br>" + LOCTermsSourceString + "</div>"
+                  completestringarray.append(LOCTerms)
                  else:
                   LOCHTML = "<br><br>" + LOCMatch		     
                  if EmtreeTerms!=0:
-                  if PhraseSearch=="on":
-                     EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTermsPhrase + "</div>"
-                     completestringarray.append(EmtreeTerms)
-                  else:
-                     EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTerms + "</div>"
-                     completestringarray.append(EmtreeTerms)
+                  EmtreeHTML = "<br><br>" + "<b>Emtree Term: </b>" + efilename + " <button id='EmtreeButton' onclick='seeEmtreeresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='EmtreeSeparateResults'><br>" + EmtreeTermsSourceString + "</div>"
+                  completestringarray.append(EmtreeTerms)
                  else:
                   EmtreeHTML = "<br><br>" + EmtreeMatch 
                  completestringjoined = " OR ".join(completestringarray)
