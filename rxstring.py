@@ -424,7 +424,7 @@ def drugdata():
                            combinedwikidatalist = activeingredient
                            combinedwikidatalist = sorted(combinedwikidatalist)
                            combined = ' OR '.join(combinedwikidatalist)
-					       combinedsourcestring = ' OR '.join(combinedwikidatalist)
+                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
                            combined = combined.replace(".","")
                            combined = combined.replace("(","")
                            combined = combined.replace(")","")
