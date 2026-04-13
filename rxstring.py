@@ -116,11 +116,7 @@ def drugdata():
                                                       		MESHTwoWordTerm = x.split()[:1] 
                                                       		MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
                                                       		MESHTwoWordList.append(MESHTwoWordTerm)    
-                                                      print(MESHTwoWordList)
-                                                      MESHtermssource = list(dict.fromkeys(MESHTwoWordList))
-                                                      print(MESHtermssource)
-                                                      MESHtermssource = [trunc + "*" for trunc in MESHtermssource]
-                                                      print(MESHtermssource)
+                                                      MESHtermssource = [trunc + "*" for trunc in MESHTwoWordList]
                                           else:
                                                       MESHtermssource = MESHterms
                                          								  
