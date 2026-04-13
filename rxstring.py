@@ -609,6 +609,10 @@ def drugdata():
                             else:
                                           EmtreeTerms = etrees.text
                                           EmtreeTerms = EmtreeTerms.replace(u'\xa0', u'')
+                                          EmtreeTermsSource = (EmtreeTerms.split("\n")[:-3])
+                                          EmtreeTermsSource = [x for x in EmtreeTermsSource if x]
+                                          EmtreeTermsSource = [x.strip() for x in EmtreeTermsSource]
+                                          EmtreeTermsSource = sorted(EmtreeTermsSource)
                                           EtreeQualifier = "(" + drug + ")" 
                                           EmtreeTerms = EmtreeTerms.replace(EtreeQualifier,"")
                                           EmtreeTerms = EmtreeTerms.replace("[Drug Trade Name]","")
@@ -627,7 +631,7 @@ def drugdata():
                                           EmtreeTerms = [x.strip() for x in EmtreeTerms]
                                           EmtreeTerms = sorted(EmtreeTerms)
                                           EmtreeTerms = " OR ".join(EmtreeTerms)
-                                          EmtreeTermsSourceString = EmtreeTerms
+                                          EmtreeTermsSourceString = " OR ".join(EmtreeTermsSource)
 
              else:
                EmtreeTerms = 0
