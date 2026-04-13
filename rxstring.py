@@ -583,7 +583,7 @@ def drugdata():
              else:
                  completestringarray = []
                  if MESHtermcheck!=0:
-                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermssourcetring + "</div>"
+                  MESHHTML = "<b>MeSH  term:</b> " + "<a target='blank' href='" + MESHnode + "'>" + MESHtermreplaced + "</a>" + " <button id='MeSHButton' onclick='seeMeSHresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='MeSHSeparateResults'><br>" + MESHtermssourcestring + "</div>"
                   completestringarray.append(MESHtermstring)
                  else:
                   MESHHTML = MeshMatch
