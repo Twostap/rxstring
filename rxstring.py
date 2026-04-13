@@ -219,9 +219,36 @@ def drugdata():
                                if synnode:
                                          rxalt.append(synnode)
                                rxalt = sorted(rxalt)
-                               rxnormstring = ' OR '.join(rxalt)
+                               							   
+                               if TruncationSymbol=="on":
+                                         rxaltsource = [trunc + "*" for trunc in rxalt]
+                               elif TruncationSecond=="on":
+                                         rxaltTwoWordList = []
+                                         for x in rxalt:
+                                                    rxaltTwoWordCheck = len(x.split())     
+                                                    if rxaltTwoWordCheck >=2:           
+                                                      		rxaltTwoWordTerm = x.split()[:2]
+                                                      		rxaltTwoWordTerm = " ".join(rxaltTwoWordTerm)
+                                                      		rxaltTwoWordList.append(rxaltTwoWordTerm)
+                                                    else:
+                                                      		rxaltTwoWordTerm = x.split()[:1] 
+                                                      		rxaltTwoWordTerm = "".join(rxaltTwoWordTerm)                                          
+                                                      		rxaltTwoWordList.append(rxaltTwoWordTerm)    
+                                                    rxaltsource = [trunc + "*" for trunc in rxaltTwoWordList]
+                               elif TruncationFirst=="on":
+                                         rxaltOneWordList = [x.split()[0] for x in rxalt]
+                                         rxaltsource = [trunc + "*" for trunc in rxaltOneWordList]
+                               else:
+                                         rxaltsource = rxalt
+                                         								  
+                               if PhraseSearch=="on":
+                                         rxaltsourcestring = '" OR "'.join(rxaltsource)
+                                         rxaltsourcestring = '"' + rxaltsourcestring + '"'							  
+                               else:
+                                         rxaltsourcestring = ' OR '.join(rxaltsource)
+
+							   rxnormstring = ' OR '.join(rxalt)
                                rxnormstringphrase = '" OR "'.join(rxalt)
-                               rxnormstringphrase = '"' + rxnormstringphrase + '"'
                                rxnormstring = rxnormstring.replace(".","")
                                rxnormstring = rxnormstring.replace(",","")
 
@@ -603,12 +630,8 @@ def drugdata():
                  else:
                   MESHHTML = MeshMatch
                  if rxnormstring!=0:
-                  if PhraseSearch=="on":    
-                     RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstringphrase + "</div>"
-                     completestringarray.append(rxnormstring)
-                  else:
-                     RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxnormstring + "</div>"
-                     completestringarray.append(rxnormstring)
+                  RxHTML = "<br><br><b>RXNorm CUI:</b> " + "<a target='blank' href='https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=" + idnumber + "'>" + idnumber + "</a>" + " <button id='RXNormButton' onclick='seeRXNormresults()' type='button' style='background-color:white; font-size: .5em; min-width:17px; vertical-align:top;'>+</button>" + "<div style='display: none;' id='RXNormSeparateResults'><br>" + rxaltsourcestring + "</div>"
+                  completestringarray.append(rxnormstring)
                  else:
                   RxHTML = "<br><br>" + RXMatch
                  if combined!=0:
