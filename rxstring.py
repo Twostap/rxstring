@@ -249,7 +249,7 @@ def drugdata():
                                          #rxaltsourcestring = ' OR '.join(rxaltsource)
 
                                rxnormstring = ' OR '.join(rxalt)
-                               rxnormsourcestring = ' OR '.join(rxalt)
+                               rxaltsourcestring = ' OR '.join(rxalt)
                                rxnormstring = rxnormstring.replace(".","")
                                rxnormstring = rxnormstring.replace(",","")
 
