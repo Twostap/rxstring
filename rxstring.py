@@ -117,15 +117,18 @@ def drugdata():
                                                       		MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
                                                       		MESHTwoWordList.append(MESHTwoWordTerm)    
                                                       MESHtermssource = [trunc + "*" for trunc in MESHTwoWordList]
+                                          elif TruncationFirst=="on":
+                                                      MESHOneWordList = [x.split()[0] for x in MESHterms]
+                                                      MESHtermssource = [trunc + "*" for trunc in MESHOneWordList]
                                           else:
                                                       MESHtermssource = MESHterms
                                          								  
                                           if PhraseSearch=="on":
                                                       MESHtermssourcestring = '" OR "'.join(MESHtermssource)
                                                       MESHtermssourcestring = '"' + MESHtermssourcestring + '"'							  
-										  
                                           else:
                                                       MESHtermssourcestring = ' OR '.join(MESHtermssource)
+
                                           MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
