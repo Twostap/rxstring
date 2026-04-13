@@ -102,33 +102,34 @@ def drugdata():
                                                       MESHterms.append(MESHentrynode)
                                           MESHterms = sorted(MESHterms)
 
-                                          if TruncationSymbol=="on":
-                                                      MESHtermssource = [trunc + "*" for trunc in MESHterms]
-                                          elif TruncationSecond=="on":
-                                                      MESHTwoWordList = []
-                                                      for x in MESHterms:
-                                                      	MESHTwoWordCheck = len(x.split())     
-                                                      	if MESHTwoWordCheck >=2:           
-                                                      		MESHTwoWordTerm = x.split()[:2]
-                                                      		MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
-                                                      		MESHTwoWordList.append(MESHTwoWordTerm)
-                                                      	else:
-                                                      		MESHTwoWordTerm = x.split()[:1] 
-                                                      		MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
-                                                      		MESHTwoWordList.append(MESHTwoWordTerm)    
-                                                      MESHtermssource = [trunc + "*" for trunc in MESHTwoWordList]
-                                          elif TruncationFirst=="on":
-                                                      MESHOneWordList = [x.split()[0] for x in MESHterms]
-                                                      MESHtermssource = [trunc + "*" for trunc in MESHOneWordList]
-                                          else:
-                                                      MESHtermssource = MESHterms
+                                          #if TruncationSymbol=="on":
+                                                      #MESHtermssource = [trunc + "*" for trunc in MESHterms]
+                                          #elif TruncationSecond=="on":
+                                                      #MESHTwoWordList = []
+                                                      #for x in MESHterms:
+                                                      	#MESHTwoWordCheck = len(x.split())     
+                                                      	#if MESHTwoWordCheck >=2:           
+                                                      		#MESHTwoWordTerm = x.split()[:2]
+                                                      		#MESHTwoWordTerm = " ".join(MESHTwoWordTerm)
+                                                      		#MESHTwoWordList.append(MESHTwoWordTerm)
+                                                      	#else:
+                                                      		#MESHTwoWordTerm = x.split()[:1] 
+                                                      		#MESHTwoWordTerm = "".join(MESHTwoWordTerm)                                          
+                                                      		#MESHTwoWordList.append(MESHTwoWordTerm)    
+                                                      #MESHtermssource = [trunc + "*" for trunc in MESHTwoWordList]
+                                          #elif TruncationFirst=="on":
+                                                      #MESHOneWordList = [x.split()[0] for x in MESHterms]
+                                                      #MESHtermssource = [trunc + "*" for trunc in MESHOneWordList]
+                                          #else:
+                                                      #MESHtermssource = MESHterms
                                          								  
-                                          if PhraseSearch=="on":
-                                                      MESHtermssourcestring = '" OR "'.join(MESHtermssource)
-                                                      MESHtermssourcestring = '"' + MESHtermssourcestring + '"'							  
-                                          else:
-                                                      MESHtermssourcestring = ' OR '.join(MESHtermssource)
+                                          #if PhraseSearch=="on":
+                                                      #MESHtermssourcestring = '" OR "'.join(MESHtermssource)
+                                                      #MESHtermssourcestring = '"' + MESHtermssourcestring + '"'							  
+                                          #else:
+                                                      #MESHtermssourcestring = ' OR '.join(MESHtermssource)
 
+                                          MESHtermssourcestring = ' OR '.join(MESHterms)
                                           MESHtermstring = ' OR '.join(MESHterms) 
                                           MESHtermstring = MESHtermstring.replace("(","")
                                           MESHtermstring = MESHtermstring.replace(")","")
