@@ -87,7 +87,6 @@ def drugdata():
 
                    MESHresponse = requests.get(url = MESHURL)
                    MESHdata = MESHresponse.json()
-                   print(MESHdata)
                    for result in MESHdata["results"]["bindings"]:
                                MESHnode = result["descriptor"]["value"]
 #Testing if the query identified a term. If it did, get entry terms and append to MESHTerms array.
@@ -97,12 +96,10 @@ def drugdata():
                                           MESHentryresponse = requests.get(url = MESHURL2, params = MESHPARAMS2)
 
                                           MESHentrydata = MESHentryresponse.json()
-                                          print(MESHentrydata)
 
                                           for meshentry in MESHentrydata["terms"]:
                                                       MESHentrynode = meshentry["label"]
                                                       MESHterms.append(MESHentrynode)
-                                          print(MESHterms)
                                           MESHterms = sorted(MESHterms)
 #Section for truncating and phrase searching single source. Noted out for now.
                                           #if TruncationSymbol=="on":
