@@ -448,7 +448,10 @@ def drugdata():
              if PubChemSearch=="on":
                  
                  PubChemURL = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/" + drug + "/synonyms/JSON"
-                 PubChemResponse = requests.get(url = PubChemURL, headers = MESHheaders)
+                 PubChemheaders = {'User-Agent': "rxstring/1.0", 
+				 'From': "tyler.ostapyk@umanitoba.ca"}
+				 
+				 PubChemResponse = requests.get(url = PubChemURL, headers = PubChemheaders)
                  
                  if PubChemResponse.status_code==404:
                            PubTerms = 0
