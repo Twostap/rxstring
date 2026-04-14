@@ -149,7 +149,7 @@ def drugdata():
                    if MESHtermcheck==1:
                                MESHURL3 = "https://id.nlm.nih.gov/mesh/lookup/label"
                                MESHPARAMS3 = {'resource':MESHnode}
-                               MESHtermresponse = requests.get(url = MESHURL3, params = MESHPARAMS3)
+                               MESHtermresponse = requests.get(url = MESHURL3, params = MESHPARAMS3, headers = MESHheaders)
                                MESHterm = MESHtermresponse.json()
                                MESHtermreplaced = "".join(MESHterm)
 
