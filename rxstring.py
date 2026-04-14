@@ -165,9 +165,12 @@ def drugdata():
              
                  URL = "https://rxnav.nlm.nih.gov/REST/rxcui.json"
 
+                 RXNormheaders = {'User-Agent': "rxstring/1.0", 
+								 'From': "tyler.ostapyk@umanitoba.ca"}
+
                  PARAMS = {'name':drug}
 
-                 rxnorm = requests.get(url = URL, params = PARAMS)
+                 rxnorm = requests.get(url = URL, params = PARAMS, headers = RXNormheaders)
 
                  data = rxnorm.json()
 
@@ -193,7 +196,7 @@ def drugdata():
 
                            PARAMS2 = {'rela':relators}
 
-                           rxrelated = requests.get(url = URL2, params = PARAMS2)
+                           rxrelated = requests.get(url = URL2, params = PARAMS2, headers = RXNormheaders)
 
                            relateddata = rxrelated.json()
 
@@ -215,7 +218,7 @@ def drugdata():
 
                                URL3 = "https://rxnav.nlm.nih.gov/REST/rxcui/" + idnumber + "/properties.json"
 
-                               rxsynonyms = requests.get(url = URL3)
+                               rxsynonyms = requests.get(url = URL3, headers = RxNormheaders)
 
                                rxsyndata = rxsynonyms.json()
 
