@@ -218,7 +218,7 @@ def drugdata():
 
                                URL3 = "https://rxnav.nlm.nih.gov/REST/rxcui/" + idnumber + "/properties.json"
 
-                               rxsynonyms = requests.get(url = URL3, headers = RxNormheaders)
+                               rxsynonyms = requests.get(url = URL3, headers = RXNormheaders)
 
                                rxsyndata = rxsynonyms.json()
 
