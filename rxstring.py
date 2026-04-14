@@ -88,7 +88,7 @@ def drugdata():
 								 'From': "tyler.ostapyk@umanitoba.ca"}
 				 
                    MESHresponse = requests.get(url = MESHURL, headers = MESHheaders)
-                   print(MESHresponse.requests.headers)
+                   print(MESHresponse.request.headers)
                    MESHdata = MESHresponse.json()
                    for result in MESHdata["results"]["bindings"]:
                                MESHnode = result["descriptor"]["value"]
