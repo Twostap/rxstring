@@ -87,6 +87,8 @@ def drugdata():
 
                    MESHresponse = requests.get(url = MESHURL)
                    MESHdata = MESHresponse.json()
+                   print(MESHdata)
+                   print(MESHresponse.headers)
                    for result in MESHdata["results"]["bindings"]:
                                MESHnode = result["descriptor"]["value"]
 #Testing if the query identified a term. If it did, get entry terms and append to MESHTerms array.
@@ -96,6 +98,8 @@ def drugdata():
                                           MESHentryresponse = requests.get(url = MESHURL2, params = MESHPARAMS2)
 
                                           MESHentrydata = MESHentryresponse.json()
+                                          print(MESHentrydata)
+                                          print(MESHentryresponse.headers)
 
                                           for meshentry in MESHentrydata["terms"]:
                                                       MESHentrynode = meshentry["label"]
