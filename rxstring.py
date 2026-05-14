@@ -87,7 +87,7 @@ def drugdata():
                    MESHheaders = {'User-Agent': "rxstring/1.0", 
 								 'From': "tyler.ostapyk@umanitoba.ca"}
 				 
-                   MESHresponse = requests.get(url = MESHURL, headers = MESHheaders)
+                   MESHresponse = requests.get(url = MESHURL)
                    MESHdata = MESHresponse.json()
                    for result in MESHdata["results"]["bindings"]:
                                MESHnode = result["descriptor"]["value"]
@@ -95,7 +95,7 @@ def drugdata():
                                if MESHnode.startswith("http://id.nlm.nih"):
                                           MESHURL2 = "https://id.nlm.nih.gov/mesh/lookup/details"
                                           MESHPARAMS2 = {'descriptor':MESHnode,'includes':'terms'}
-                                          MESHentryresponse = requests.get(url = MESHURL2, params = MESHPARAMS2, headers = MESHheaders)
+                                          MESHentryresponse = requests.get(url = MESHURL2, params = MESHPARAMS2)
 
                                           MESHentrydata = MESHentryresponse.json()
 
