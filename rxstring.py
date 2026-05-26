@@ -295,7 +295,7 @@ def drugdata():
                                                       			q = u.split("http://www.wikidata.org/entity/")[1]
                                                       			results.append(q)
                                          break
-                               except urllib.error.HTTPError as e:
+                               except HTTPError as e:
                                          if e.code == 429:
                                                       		print("hit limit code")
                                                       		# Get the Retry-After header, default to 60 seconds if missing
@@ -306,7 +306,7 @@ def drugdata():
                                                       		print(e.code)
                                                       		raise e
                  except Exception as e:
-                           print(urllib.error.HTTPError.code)
+                           print(HTTPError.code)
                            print("Wikidata query failed")
                  print(results)
                  altvalue = []
