@@ -334,14 +334,30 @@ def drugdata():
 #For Wikidata items found, get alt labels, used in, and active ingredient terms, then join them
                  #AltLabels
                  for i in results:
-                           query = f" select ?altLabel where {{wd:{i} skos:altLabel|rdfs:label ?altLabel. FILTER(LANG(?altLabel) = 'en').}} "
-                           sparql.setQuery(query)
+                           query2 = f" select ?altLabel where {{wd:{i} skos:altLabel|rdfs:label ?altLabel. FILTER(LANG(?altLabel) = 'en').}} "
+                           sparql.setQuery(query2)
                            sparql.setReturnFormat(JSON)
-                           alts = sparql.query().convert()
-                           for altlabel in alts["results"]["bindings"]:
-                               for key, value in altlabel.items():
-                                         v = value["value"]
-                                         altvalue.append(v)
+                           
+                           try:
+                               retries2 = 0
+                               while retries2 < 3:
+                                         try:
+                                                      		alts = sparql.query().convert()
+                                                      		for altlabel in alts["results"]["bindings"]:
+                                                      			for key, value in altlabel.items():
+                                                      				v = value["value"]
+                                                      				altvalue.append(v)
+                                                      		break
+                                         except urllib.error.HTTPError as e:
+                                                      			if e.code == 429:
+                                                      				# Get the Retry-After header, default to 60 seconds if missing
+                                                      				wait_time = int(e.headers.get("Retry-After", 60))
+                                                      				print("rate limited")
+                                                      				time.sleep(wait_time)
+                                                      				retries2 += 1
+                                                      			else:
+                                                      				raise e
+					 
    
                  ###Terms from UsedIn
                  for j in results:
