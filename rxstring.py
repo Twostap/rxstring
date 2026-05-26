@@ -357,8 +357,10 @@ def drugdata():
                                                       				retries2 += 1
                                                       			else:
                                                       				raise e
+
+                           except Exception as e:
+                               print("Wikidata query2 failed")
 					 
-   
                  ###Terms from UsedIn
                  for j in results:
                            query3 = f" select ?usedinLabel where {{?usedin wdt:P3781|wdt:P3780 wd:{j}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }} }} "
