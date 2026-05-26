@@ -290,6 +290,7 @@ def drugdata():
                                          print("querying1")
                                          ret = sparql.query().convert()
                                          print(ret)
+                                         print(ret.headers)
                                          for r in ret["results"]["bindings"]:
                                                       		for key, value in r.items():
                                                       			u = value["value"]
