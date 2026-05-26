@@ -300,6 +300,7 @@ def drugdata():
                                          if e.code == 429:
                                                       		print("hit limit code")
                                                       		# Get the Retry-After header, default to 60 seconds if missing
+                                                      		print(e.headers.get("Retry-After"))
                                                       		wait_time = int(e.headers.get("Retry-After", 60))
                                                       		time.sleep(wait_time)
                                                       		retries += 1
