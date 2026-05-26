@@ -267,8 +267,9 @@ def drugdata():
              if WikidataSearch=="on":
                  QID = []  
                  from SPARQLWrapper import SPARQLWrapper, JSON
-
-                 sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="rxstring/3.0;(https://rxstring.ca; tyler.ostapyk@umanitoba.ca)")
+                 wikidataurl = "https://query.wikidata.org/sparql"
+				 wikidataagent = "rxstring/3.0;(https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
+                 sparql = SPARQLWrapper(wikidataurl, agent = wikidataagent)
 
                  #Match drug term, may want to limit to specific property, e.g. pharmaceutical products
                  term = '"' + drug + '"@en'
@@ -295,7 +296,7 @@ def drugdata():
                                          if e.code == 429:
                                                       		# Get the Retry-After header, default to 60 seconds if missing
                                                       		wait_time = int(e.headers.get("Retry-After", 60))
-                                                      		print(f"Rate limited. Waiting for {wait_time} seconds...")
+                                                      		print("rate limited")
                                                       		time.sleep(wait_time)
                                                       		retries += 1
                                          else:
