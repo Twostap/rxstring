@@ -29,6 +29,7 @@ import csv
 import sys
 from bs4 import BeautifulSoup
 from urllib.error import HTTPError, URLError
+import time
 
 # Flask constructor
 app = Flask(__name__)  
@@ -306,7 +307,6 @@ def drugdata():
                                                       		print(e.code)
                                                       		raise e
                  except Exception as e:
-                           print(HTTPError.code)
                            print("Wikidata query failed")
                  print(results)
                  altvalue = []
