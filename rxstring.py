@@ -333,6 +333,7 @@ def drugdata():
                              QID5 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID5 + "'>" + QID5 + "</a>"
                              QID.append(QID5)                              
                  QID = ", ".join(QID)
+				 print(QID)
 
 #For Wikidata items found, get alt labels, used in, and active ingredient terms, then join them
                  #AltLabels
