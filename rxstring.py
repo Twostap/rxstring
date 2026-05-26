@@ -279,8 +279,25 @@ def drugdata():
                  queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
                  sparql.setQuery(queryterm)
                  sparql.setReturnFormat(JSON)
-                 ret = sparql.query().convert()
-                 results = []
+				 try:
+                           retries = 0
+                           while retries < 3:
+                               try:
+                                         ret = sparql.query().convert()
+                                         results = []
+                                         break
+                               except urllib.error.HTTPError as e:
+                                         if e.code == 429:
+                                                      		# Get the Retry-After header, default to 60 seconds if missing
+                                                      		wait_time = int(e.headers.get("Retry-After", 60))
+                                                      		print(f"Rate limited. Waiting for {wait_time} seconds...")
+                                                      		time.sleep(wait_time)
+                                                      		retries += 1
+                                         else:
+                                                      		raise e
+				 except Exception as e:
+                           print("Wikidata query failed")
+
                  for r in ret["results"]["bindings"]:
                            for key, value in r.items():
                                u = value["value"]
