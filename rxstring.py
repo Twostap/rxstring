@@ -276,7 +276,7 @@ def drugdata():
                  drugcapitalterm = '"' + drugcapital + '"@en'    
                  drugallcapsterm = '"' + drugallcaps + '"@en'  
                  drugtitleterm = '"' + drugtitle + '"@en'  
-#Wikidata Query - looks for the drug term all caps and no caps in alt label or label and is "instance of" or "subclass of" drug, medication, or chemical compound or "has use" of medication
+#Wikidata Query - looks for the drug term all caps and no caps in alt label or label and is "instance of" or "subclass of" drug, medication, or chemical compound or "has use" of medication. Tries and pauses for 60 due to rate limiting.
                  queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
                  sparql.setQuery(queryterm)
                  sparql.setReturnFormat(JSON)
@@ -366,24 +366,59 @@ def drugdata():
                            query3 = f" select ?usedinLabel where {{?usedin wdt:P3781|wdt:P3780 wd:{j}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }} }} "
                            sparql.setQuery(query3)
                            sparql.setReturnFormat(JSON)
-                           usedins = sparql.query().convert()
-                           for usedlabels in usedins["results"]["bindings"]:
-                               for key, value in usedlabels.items():
-                                         u = value["value"]
-                                         ingredientin.append(u)
+                           
+                           try:
+                               retries3 = 0
+                               while retries3 < 3:
+                                         try:
+                                                      		usedins = sparql.query().convert()
+                                                      		for usedlabels in usedins["results"]["bindings"]:
+                                                      			for key, value in usedlabels.items():
+                                                      				u = value["value"]
+                                                      				ingredientin.append(u)
+                                                      		break
+                                         except urllib.error.HTTPError as e:
+                                                      			if e.code == 429:
+                                                      				# Get the Retry-After header, default to 60 seconds if missing
+                                                      				wait_time = int(e.headers.get("Retry-After", 60))
+                                                      				print("rate limited")
+                                                      				time.sleep(wait_time)
+                                                      				retries3 += 1
+                                                      			else:
+                                                      				raise e
+
+                           except Exception as e:
+                               print("Wikidata query3 failed")
 
                  ###Terms for active ingredient
                  for a in results:
                            query4 = f" select ?activeLabel where {{?active wdt:P3780 wd:{a}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }} }} "
                            sparql.setQuery(query4)
                            sparql.setReturnFormat(JSON)
-                           active = sparql.query().convert()
-                           for activelabels in active["results"]["bindings"]:
-                               for key, value in activelabels.items():
-                                         y = value["value"]
-                                         activeingredient.append(y)
+                           
+                           try:
+                               retries4 = 0
+                               while retries4 < 3:
+                                         try:
+                                                      		active = sparql.query().convert()
+                                                      		for activelabels in active["results"]["bindings"]:
+                                                      			for key, value in activelabels.items():
+                                                      				y = value["value"]
+                                                      				activeingredient.append(y)
+                                                      		break
+                                         except urllib.error.HTTPError as e:
+                                                      			if e.code == 429:
+                                                      				# Get the Retry-After header, default to 60 seconds if missing
+                                                      				wait_time = int(e.headers.get("Retry-After", 60))
+                                                      				print("rate limited")
+                                                      				time.sleep(wait_time)
+                                                      				retries4 += 1
+                                                      			else:
+                                                      				raise e
 
-
+                           except Exception as e:
+                               print("Wikidata query4 failed")
+				 
                  #Combine lists and convert to strings
                  if len(altvalue)!= 0 and len(ingredientin)!=0 and len(activeingredient)!=0:
                            combinedwikidatalist = altvalue + ingredientin + activeingredient
