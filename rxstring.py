@@ -28,6 +28,7 @@ import requests
 import csv
 import sys
 from bs4 import BeautifulSoup
+from urllib.error import HTTPError, URLError
 
 # Flask constructor
 app = Flask(__name__)  
