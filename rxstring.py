@@ -305,6 +305,7 @@ def drugdata():
                                                       		print(e.code)
                                                       		raise e
                  except Exception as e:
+                           print(urllib.error.HTTPError.code)
                            print("Wikidata query failed")
                  print(results)
                  altvalue = []
