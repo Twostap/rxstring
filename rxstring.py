@@ -333,7 +333,6 @@ def drugdata():
                              QID5 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID5 + "'>" + QID5 + "</a>"
                              QID.append(QID5)                              
                  QID = ", ".join(QID)
-				 print(QID)
 
 #For Wikidata items found, get alt labels, used in, and active ingredient terms, then join them
                  #AltLabels
@@ -346,6 +345,7 @@ def drugdata():
                                retries2 = 0
                                while retries2 < 3:
                                          try:
+                                                      		print("querying2")
                                                       		alts = sparql.query().convert()
                                                       		for altlabel in alts["results"]["bindings"]:
                                                       			for key, value in altlabel.items():
@@ -354,12 +354,13 @@ def drugdata():
                                                       		break
                                          except urllib.error.HTTPError as e:
                                                       			if e.code == 429:
-                                                      				# Get the Retry-After header, default to 60 seconds if missing
+                                                      				print("hit limit rate on query 2")
+																	# Get the Retry-After header, default to 60 seconds if missing
                                                       				wait_time = int(e.headers.get("Retry-After", 60))
-                                                      				print("rate limited")
                                                       				time.sleep(wait_time)
                                                       				retries2 += 1
                                                       			else:
+                                                      				print(e.code)
                                                       				raise e
 
                            except Exception as e:
