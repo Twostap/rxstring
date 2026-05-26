@@ -279,7 +279,7 @@ def drugdata():
                  queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
                  sparql.setQuery(queryterm)
                  sparql.setReturnFormat(JSON)
-				 results = []
+                 results = []
                  try:
                            retries = 0
                            while retries < 3:
