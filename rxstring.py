@@ -285,6 +285,11 @@ def drugdata():
                                try:
                                          ret = sparql.query().convert()
                                          results = []
+                                         for r in ret["results"]["bindings"]:
+                                                      		for key, value in r.items():
+                                                      			u = value["value"]
+                                                      			q = u.split("http://www.wikidata.org/entity/")[1]
+                                                      			results.append(q)
                                          break
                                except urllib.error.HTTPError as e:
                                          if e.code == 429:
@@ -298,11 +303,6 @@ def drugdata():
                  except Exception as e:
                            print("Wikidata query failed")
 
-                 for r in ret["results"]["bindings"]:
-                           for key, value in r.items():
-                               u = value["value"]
-                               q = u.split("http://www.wikidata.org/entity/")[1]
-                               results.append(q)
                  altvalue = []
                  ingredientin = []
                  activeingredient = []
