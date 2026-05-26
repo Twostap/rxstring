@@ -289,8 +289,6 @@ def drugdata():
                                try:
                                          print("querying1")
                                          ret = sparql.query().convert()
-                                         print(ret)
-                                         print(ret.headers)
                                          for r in ret["results"]["bindings"]:
                                                       		for key, value in r.items():
                                                       			u = value["value"]
@@ -299,8 +297,7 @@ def drugdata():
                                          break
                                except HTTPError as e:
                                          if e.code == 429:
-                                                      		print("hit limit code")
-                                                      		# Get the Retry-After header, default to 60 seconds if missing
+                                                      		print("hit limit")
                                                       		print(e.headers.get("Retry-After"))
                                                       		wait_time = int(e.headers.get("Retry-After", 60))
                                                       		time.sleep(wait_time)
