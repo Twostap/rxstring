@@ -285,7 +285,9 @@ def drugdata():
                            retries = 0
                            while retries < 3:
                                try:
+                                         print("querying1")
                                          ret = sparql.query().convert()
+                                         print(ret)
                                          for r in ret["results"]["bindings"]:
                                                       		for key, value in r.items():
                                                       			u = value["value"]
@@ -294,16 +296,17 @@ def drugdata():
                                          break
                                except urllib.error.HTTPError as e:
                                          if e.code == 429:
+                                                      		print("hit limit code")
                                                       		# Get the Retry-After header, default to 60 seconds if missing
                                                       		wait_time = int(e.headers.get("Retry-After", 60))
-                                                      		print("rate limited")
                                                       		time.sleep(wait_time)
                                                       		retries += 1
                                          else:
+                                                      		print(e.code)
                                                       		raise e
                  except Exception as e:
                            print("Wikidata query failed")
-
+                 print(results)
                  altvalue = []
                  ingredientin = []
                  activeingredient = []
