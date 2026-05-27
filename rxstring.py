@@ -271,7 +271,7 @@ def drugdata():
                  from SPARQLWrapper import SPARQLWrapper, JSON
                  wikidataurl = "https://query.wikidata.org/sparql"
                  wikidataagent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
-                 sparql = SPARQLWrapper(wikidataurl, agent = wikidataagent)
+                 sparql = SPARQLWrapper(wikidataurl)
 
                  #Match drug term, may want to limit to specific property, e.g. pharmaceutical products
                  term = '"' + drug + '"@en'
