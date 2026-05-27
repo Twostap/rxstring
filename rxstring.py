@@ -29,6 +29,7 @@ import csv
 import sys
 from bs4 import BeautifulSoup
 from urllib.error import HTTPError, URLError
+from SPARQLWrapper import SPARQLWrapper, JSON
 import time
 
 # Flask constructor
@@ -268,7 +269,6 @@ def drugdata():
              
              if WikidataSearch=="on":
                  QID = []  
-                 from SPARQLWrapper import SPARQLWrapper, JSON
                  wikidataurl = "https://query.wikidata.org/sparql"
                  wikidataagent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
                  sparql = SPARQLWrapper(wikidataurl)
