@@ -298,6 +298,7 @@ def drugdata():
                                except HTTPError as e:
                                          if e.code == 429:
                                                       		print("hit limit")
+                                                      		print(e.headers)
                                                       		print(e.headers.get("Retry-After"))
                                                       		wait_time = int(e.headers.get("Retry-After", 60))
                                                       		time.sleep(wait_time)
