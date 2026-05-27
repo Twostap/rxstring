@@ -270,8 +270,8 @@ def drugdata():
              if WikidataSearch=="on":
                  QID = []  
                  wikidataurl = "https://query.wikidata.org/sparql"
-                 wikidataagent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
-                 sparql = SPARQLWrapper(wikidataurl, agent = wikidataagent)
+                 user_agent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
+                 sparql = SPARQLWrapper(wikidataurl, agent = user_agent)
 
                  #Match drug term, may want to limit to specific property, e.g. pharmaceutical products
                  term = '"' + drug + '"@en'
