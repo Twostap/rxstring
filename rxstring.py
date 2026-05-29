@@ -269,257 +269,62 @@ def drugdata():
              
              if WikidataSearch=="on":
                  QID = []  
-                 wikidataurl = "https://query.wikidata.org/sparql"
-                 user_agent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
-                 sparql = SPARQLWrapper(wikidataurl, agent=user_agent)
-                 sparql.agent = "rxstring/3.0 (https://rxstring.ca; tyler.ostapyk@umanitoba.ca)"
-
-                 #Match drug term, may want to limit to specific property, e.g. pharmaceutical products
+                 sparqlrequestheader = {
+                    'User-Agent': 'rxstring/1.0 (mailto:tyler.ostapyk@umanitoba.ca)', 
+                    'Accept': 'application/sparql-results+json',
+                    }
                  term = '"' + drug + '"@en'
                  drugcapitalterm = '"' + drugcapital + '"@en'    
                  drugallcapsterm = '"' + drugallcaps + '"@en'  
-                 drugtitleterm = '"' + drugtitle + '"@en'  
-#Wikidata Query - looks for the drug term all caps and no caps in alt label or label and is "instance of" or "subclass of" drug, medication, or chemical compound or "has use" of medication. Tries and pauses for 60 due to rate limiting.
-                 queryterm = f" select distinct ?item where {{values ?drug {{{term} {drugcapitalterm} {drugtitleterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}.}} LIMIT 1000"
-                 sparql.setQuery(queryterm)
-                 sparql.setReturnFormat(JSON)
+                 queryterm = f" select distinct ?item ?altlabels where {{values ?drug {{{term} {drugcapitalterm} {drugallcapsterm}}}. ?item rdfs:label|skos:altLabel ?drug. values ?type {{wd:Q8386 wd:Q12140 wd:Q11173}}. {{?item wdt:P31*/wdt:P279* ?type}} UNION {{?item wdt:P366 wd:Q12140}}. ?item wdt:P3781|wdt:P3780 ?usedin. {{?item skos:altLabel|rdfs:label ?altlabels}} UNION {{?usedin skos:altLabel|rdfs:label ?altlabels}}. FILTER(LANG(?altlabels) = 'en'). SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'.}}}} LIMIT 100"
+
+                 wikiresponse = requests.post('https://query.wikidata.org/sparql', data={'query' : queryterm}, headers=sparqlrequestheader)
+                 
+                 if wikiresponse.status_code == 429:
+                    wait_time = int(wikiresponse.headers.get("Retry-After", 60))
+                    time.sleep(wait_time)
+                    wikiresponse = requests.post('https://query.wikidata.org/sparql', data={'query' : queryterm}, headers=sparqlrequestheader)                  
+                              
+                 ret = wikiresponse.json()
                  results = []
-                 try:
-                           retries = 0
-                           while retries < 3:
-                               try:
-                                         print("querying1")
-                                         ret = sparql.query().convert()
-                                         for r in ret["results"]["bindings"]:
-                                                      		for key, value in r.items():
-                                                      			u = value["value"]
-                                                      			q = u.split("http://www.wikidata.org/entity/")[1]
-                                                      			results.append(q)
-                                         break
-                               except HTTPError as e:
-                                         if e.code == 429:
-                                                      		print("hit limit")
-                                                      		print(e.headers)
-                                                      		print(e.headers.get("Retry-After"))
-                                                      		wait_time = int(e.headers.get("Retry-After", 60))
-                                                      		time.sleep(wait_time)
-                                                      		retries += 1
-                                         else:
-                                                      		print(e.code)
-                                                      		raise e
-                 except Exception as e:
-                           print("Wikidata query failed")
-                 print(results)
-                 altvalue = []
-                 ingredientin = []
-                 activeingredient = []
-#For Wikidata items found, get QIDs
-                 for n, num in enumerate(results):
-                          if n==0:
-                             QID1 = num
-                             QID1 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID1 + "'>" + QID1 + "</a>"
-                             QID.append(QID1)
-                          elif n==1:
-                             QID2 = num
-                             QID2 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID2 + "'>" + QID2 + "</a>"
-                             QID.append(QID2)
-                          elif n==3:
-                             QID3 = num
-                             QID3 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID3 + "'>" + QID3 + "</a>"
-                             QID.append(QID3)
-                          elif n==4:
-                             QID4 = num
-                             QID4 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID4 + "'>" + QID4 + "</a>"
-                             QID.append(QID4)
-                          elif n==5:
-                             QID5 = num
-                             QID5 = "<a target='blank' href='https://www.wikidata.org/wiki/" + QID5 + "'>" + QID5 + "</a>"
-                             QID.append(QID5)                              
-                 QID = ", ".join(QID)
+                 QID = []
+                 for r in ret["results"]["bindings"]:
+                    for key, value in r["altlabels"].items():
+                        if key == "value":
+                            u = value
+                            results.append(u)
+                 for i in ret["results"]["bindings"]:
+                    for key, value in i["item"].items():
+                        if key == "value":
+                            wid = value
+                            QID.append(wid)
+                 QID = list(set(QID))
+                 if len(QID) == 1: 
+                    QID = ", ".join(QID)
+                    QIDNumber = QID.replace("http://www.wikidata.org/entity/","")
+                    QID = "<a href='" + QID + "'>" + QIDNumber + "</a>"
+                 elif len(QID) == 2:
+                    QID = ", ".join(QID)
+                    QIDNumber = QID.replace("http://www.wikidata.org/entity/","")
+                    QIDNumber = QID.split(", ")
+                    QID = QID.split(", ")
+                    QID1 = QID[0]
+                    QIDNumber1 = QIDNumber[0]
+                    QID2 = QID[1]
+                    QIDNumber2 = QIDNumber[1]
+                    QID = "<a href='" + QID1 + "'>" + QIDNumber1 + "</a>" + " " + "<a href='" + QID2 + "'>" + QIDNumber2 + "</a>"
 
-#For Wikidata items found, get alt labels, used in, and active ingredient terms, then join them
-                 #AltLabels
-                 for i in results:
-                           query2 = f" select ?altLabel where {{wd:{i} skos:altLabel|rdfs:label ?altLabel. FILTER(LANG(?altLabel) = 'en').}} "
-                           sparql.setQuery(query2)
-                           sparql.setReturnFormat(JSON)
-                           
-                           try:
-                               retries2 = 0
-                               while retries2 < 3:
-                                         try:
-                                                      		print("querying2")
-                                                      		alts = sparql.query().convert()
-                                                      		for altlabel in alts["results"]["bindings"]:
-                                                      			for key, value in altlabel.items():
-                                                      				v = value["value"]
-                                                      				altvalue.append(v)
-                                                      		break
-                                         except urllib.error.HTTPError as e:
-                                                      			if e.code == 429:
-                                                      				print("hit limit rate on query 2")
-																	# Get the Retry-After header, default to 60 seconds if missing
-                                                      				wait_time = int(e.headers.get("Retry-After", 60))
-                                                      				time.sleep(wait_time)
-                                                      				retries2 += 1
-                                                      			else:
-                                                      				print(e.code)
-                                                      				raise e
 
-                           except Exception as e:
-                               print("Wikidata query2 failed")
-					 
-                 ###Terms from UsedIn
-                 for j in results:
-                           query3 = f" select ?usedinLabel where {{?usedin wdt:P3781|wdt:P3780 wd:{j}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }} }} "
-                           sparql.setQuery(query3)
-                           sparql.setReturnFormat(JSON)
-                           
-                           try:
-                               retries3 = 0
-                               while retries3 < 3:
-                                         try:
-                                                      		usedins = sparql.query().convert()
-                                                      		for usedlabels in usedins["results"]["bindings"]:
-                                                      			for key, value in usedlabels.items():
-                                                      				u = value["value"]
-                                                      				ingredientin.append(u)
-                                                      		break
-                                         except urllib.error.HTTPError as e:
-                                                      			if e.code == 429:
-                                                      				# Get the Retry-After header, default to 60 seconds if missing
-                                                      				wait_time = int(e.headers.get("Retry-After", 60))
-                                                      				print("rate limited")
-                                                      				time.sleep(wait_time)
-                                                      				retries3 += 1
-                                                      			else:
-                                                      				raise e
-
-                           except Exception as e:
-                               print("Wikidata query3 failed")
-
-                 ###Terms for active ingredient
-                 for a in results:
-                           query4 = f" select ?activeLabel where {{?active wdt:P3780 wd:{a}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }} }} "
-                           sparql.setQuery(query4)
-                           sparql.setReturnFormat(JSON)
-                           
-                           try:
-                               retries4 = 0
-                               while retries4 < 3:
-                                         try:
-                                                      		active = sparql.query().convert()
-                                                      		for activelabels in active["results"]["bindings"]:
-                                                      			for key, value in activelabels.items():
-                                                      				y = value["value"]
-                                                      				activeingredient.append(y)
-                                                      		break
-                                         except urllib.error.HTTPError as e:
-                                                      			if e.code == 429:
-                                                      				# Get the Retry-After header, default to 60 seconds if missing
-                                                      				wait_time = int(e.headers.get("Retry-After", 60))
-                                                      				print("rate limited")
-                                                      				time.sleep(wait_time)
-                                                      				retries4 += 1
-                                                      			else:
-                                                      				raise e
-
-                           except Exception as e:
-                               print("Wikidata query4 failed")
-				 
-                 #Combine lists and convert to strings
-                 if len(altvalue)!= 0 and len(ingredientin)!=0 and len(activeingredient)!=0:
-                           combinedwikidatalist = altvalue + ingredientin + activeingredient
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                           combined = combined.replace("{",'')
-                           combined = combined.replace("}",'')
-                 elif len(altvalue)!=0 and len(ingredientin)!=0:
-                           combinedwikidatalist = altvalue + ingredientin
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                           combined = combined.replace("{",'')
-                           combined = combined.replace("}",'')
-                 elif len(ingredientin)!=0 and len(activeingredient)!=0:
-                           combinedwikidatalist = ingredientin + activeingredient
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                 elif len(altvalue)!=0 and len(activeingredient)!=0:
-                           combinedwikidatalist = altvalue + activeingredient
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                           combined = combined.replace("{",'')
-                           combined = combined.replace("}",'')
-                 elif len(altvalue)!=0:
-                           combinedwikidatalist = altvalue
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                 elif len(ingredientin)!=0:
-                           combinedwikidatalist = ingredientin
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                           combined = combined.replace("{",'')
-                           combined = combined.replace("}",'')
-				 
-                 elif len(activeingredient)!=0:
-                           combinedwikidatalist = activeingredient
-                           combinedwikidatalist = sorted(combinedwikidatalist)
-                           combined = ' OR '.join(combinedwikidatalist)
-                           combinedsourcestring = ' OR '.join(combinedwikidatalist)
-                           combined = combined.replace(".","")
-                           combined = combined.replace("(","")
-                           combined = combined.replace(")","")
-                           combined = combined.replace("@","")
-                           combined = combined.replace('"','')
-                           combined = combined.replace("'",'')
-                           combined = combined.replace("{",'')
-                           combined = combined.replace("}",'')
+                 if results==[]:
+                     WikiMatch = "No results in Wikidata"
+                     combined= 0 
                  else:
-                           WikiMatch = "No results in Wikidata"
-                           combined = 0
-
+                     combined = " OR ".join(results)
+                     combined = combined.replace(".","")
+                     combined = combined.replace("(","")
+                     combined = combined.replace(")","")
+                     combined = combined.replace("@","")
+                     combined = combined.replace('"','')
              else:
                  combined = 0
                  WikiMatch = "Did not search Wikidata"
