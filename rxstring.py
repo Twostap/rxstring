@@ -320,7 +320,7 @@ def drugdata():
                      combined= 0 
                  else:
                      combined = " OR ".join(results)
-					 combinedsourcestring = sorted(results)
+                     combinedsourcestring = sorted(results)
                      combinedsourcestring = " OR ".join(combinesourcestring)
                      combined = combined.replace(".","")
                      combined = combined.replace("(","")
