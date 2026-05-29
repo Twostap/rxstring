@@ -18,7 +18,7 @@
 #Name: RxString
 #Description: This code produces a flask app that queries data sources for drug terms and creates a search string for use in bibliographic database searching
 #Author: Tyler Ostapyk (tyler.ostapyk@umanitoba.ca)
-#Date: December 3, 2025
+#Date: May 29, 2026
 
 # importing Flask and other modules
 from flask import Flask, request, render_template
