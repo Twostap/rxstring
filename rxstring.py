@@ -468,6 +468,7 @@ def drugdata():
                            LOCURI = LOCresult["uri"]
                            LOCid = LOCURI.replace("http://id.loc.gov/authorities/subjects/","")
                            LOCtermcheck = 1
+                           print(LOCresult)
                            for LOCalts in LOCresult["more"]["variantLabels"]:
                                LOCTerms.append(LOCalts)
                  
