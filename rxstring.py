@@ -471,17 +471,10 @@ def drugdata():
                            if "variantLabels" in LOCresult["more"]:
                                for LOCalts in LOCresult["more"]["variantLabels"]:
                                           LOCTerms.append(LOCalts)
-                           else:
-                               LOCTerms = "LOCNoAlts"
-                           
                  
                  if LOCTerms==[]:
                            LOCMatch = "No results in Library of Congress"
                            LOCtermcheck = 0
-
-                 if LOCTerms=="LOCNoAlts":
-
-                           LOCTerms = ""
 
                  if LOCtermcheck==1:
                            LOCTerms = sorted(LOCTerms)
