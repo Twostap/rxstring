@@ -469,8 +469,9 @@ def drugdata():
                            LOCid = LOCURI.replace("http://id.loc.gov/authorities/subjects/","")
                            LOCtermcheck = 1
                            print(LOCresult)
-                           for LOCalts in LOCresult["more"]["variantLabels"]:
-                               LOCTerms.append(LOCalts)
+                           if "variantLabels" in LOCresult["more"]:
+                               for LOCalts in LOCresult["more"]["variantLabels"]:
+                                          LOCTerms.append(LOCalts)
                  
                  if LOCTerms==[]:
                            LOCMatch = "No results in Library of Congress"
