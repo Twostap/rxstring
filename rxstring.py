@@ -471,7 +471,7 @@ def drugdata():
                            if "variantLabels" in LOCresult["more"]:
                                for LOCalts in LOCresult["more"]["variantLabels"]:
                                           LOCTerms.append(LOCalts)
-						   else:
+                           else:
                                LOCTerms = "LOCNoAlts"
                            
                  
